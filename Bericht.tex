@@ -41,7 +41,7 @@
 \renewcommand{\headrulewidth}{0pt}
 \fancyhead[L]{\color{sbbgray}\nouppercase{\leftmark}}
 \fancyhead[R]{\color{sbbgray}\thepage}
-\setlength{\headheight}{14pt}
+\setlength{\headheight}{14.5pt}
 
 % Hyperlinks
 \usepackage{hyperref}
@@ -70,6 +70,7 @@
 \usepackage{amsmath,amssymb}
 
 % Literatur: biblatex (backend=biber). Wenn du lieber BibTeX willst, siehe Hinweis unten.
+\usepackage{csquotes}
 \usepackage[backend=biber,style=authoryear,sorting=nyt]{biblatex}
 \addbibresource{literatur.bib}
 
@@ -78,11 +79,11 @@
 
 % ----- Metadaten für Titelseite -----
 \newcommand{\reporttitle}{Optimierte Schwellwertsetzung}
-\newcommand{\reportauthor}{Dr. Carina Santos}
+\newcommand{\reportauthor}{Carina Santos}
 \newcommand{\reportdegree}{Praktikumsarbeit}
 \newcommand{\reportdept}{SBB Energie}
 \newcommand{\reportdate}{September 2026}
-\newcommand{\reportsupervisor}{Betreuer: Dr. Andreas Fuchs}
+\newcommand{\reportsupervisor}{Betreuer: Andreas Fuchs}
 
 % ----- Dokument -----
 \begin{document}
@@ -97,8 +98,6 @@
       \hspace{1cm}\color{white}\Large\textbf{\reportdept}
     }%
   }
-
-  \vspace{2.5cm}
 
   % Logo (falls vorhanden)
   \begin{center}
@@ -134,14 +133,14 @@
 \clearpage
 \pagenumbering{roman}
 
-% Selbstständigkeitserklärung
-\section*{Selbstständigkeitserklärung}
-\addcontentsline{toc}{section}{Selbstständigkeitserklärung}
-Hiermit versichere ich, dass ich die vorliegende Arbeit selbstständig und ohne unzulässige Hilfe Dritter angefertigt habe. Alle verwendeten Quellen und Hilfsmittel sind angegeben. Die Arbeit wurde bisher keiner anderen Prüfungsbehörde vorgelegt.
+% Danksagung
+\section*{Danksagung}
+\addcontentsline{toc}{section}{Danksagung}
+An dieser Stelle moechte ich mich herzlich bei allen Personen bedanken, die mich bei der Erstellung dieser Arbeit unterstuetzt haben.
 
-\vspace{2cm}
-Ort, Datum:\\[1cm]
-Unterschrift: \hrulefill
+Mein besonderer Dank gilt meinem Betreuer Andreas Fuchs fuer die fachliche Begleitung, die wertvollen Rueckmeldungen und die konstruktiven Impulse waehrend des gesamten Projektverlaufs.
+
+Ebenso danke ich dem Team von SBB Energie fuer die offene Zusammenarbeit, den praxisnahen Austausch sowie die Bereitstellung der notwendigen Daten und Rahmenbedingungen. Insbesondere danke ich Roland Schäfer und Mara Schafroth fuer das technische Onboarding und dafuer, dass sie jederzeit fuer Fragen da waren.
 
 \clearpage
 
@@ -179,7 +178,13 @@ Motivation, Problemstellung, Zielsetzung, Aufbau der Arbeit.
 
 \section{Stand der Technik / Theoretischer Hintergrund}
 \label{sec:stand}
-Literaturüberblick, Grundlagen.
+Die vorliegende Analyse basiert auf der Kennzahl Ptotsy, die in diesem Bericht als zentrale Groesse zur Beschreibung der taeglichen Systemlast verwendet wird. Ptotsy bildet die aggregierte elektrische Last im betrachteten Bahnstromsystem ab und wird in MW ausgewiesen. Damit repraesentiert der Wert, wie stark das Gesamtsystem an einem bestimmten Zeitpunkt bzw. ueber einen Tag hinweg beansprucht wird.
+
+Fachlich ist Ptotsy fuer die Schwellwertsetzung besonders geeignet, weil die Kennzahl gleichzeitig typische Betriebszustaende und Extremzustände sichtbar macht. Der Mittelwert beschreibt das normale Lastniveau im Regelbetrieb, waehrend hohe Quantile und Maximalwerte auf Lastspitzen hinweisen, die fuer die Betriebssicherheit und Reserveplanung relevant sind. Zusaetzlich liefert die Varianz Informationen ueber die Stabilitaet des Lastverlaufs: Eine hohe Streuung deutet auf stark schwankende Betriebsbedingungen hin, eine tiefe Streuung auf einen gleichmaessigeren Betrieb.
+
+Im Kontext der Betriebsfuehrung ermoeglicht Ptotsy somit eine datenbasierte Ableitung robuster Schwellwerte. Schwellwerte muessen einerseits stabil genug sein, um im Normalbetrieb keine haeufigen Fehlalarme auszuloesen, und andererseits sensitiv genug, um bei aussergewoehnlichen Lastsituationen fruehzeitig zu reagieren. Die Kombination aus Mittelwert, Varianz sowie oberen Perzentilen (p95 und p99) bietet dafuer eine belastbare Grundlage, da sowohl das Basisniveau als auch kritische Lastbereiche systematisch beruecksichtigt werden.
+
+Darueber hinaus eignet sich Ptotsy fuer den Vergleich ueber verschiedene Zeitraeume (z. B. Wochen, Monate, Jahre), wodurch strukturelle Veraenderungen im Lastprofil sichtbar werden. Exogene Einfluesse wie Fahrplananpassungen, betriebliche Sonderlagen oder Witterungseffekte koennen so quantifiziert und in der Interpretation der Schwellwertentwicklung nachvollziehbar eingeordnet werden.
 
 %\section{Methodik}
 %\label{sec:methodik}
@@ -488,16 +493,22 @@ Zur Einordnung von Extremwerten werden in dieser Subsection die drei hoechsten P
       height=8.0cm,
       xlabel={Jahr},
       ylabel={Ptotsywert [MW]},
-      xmin=2014,
+      xmin=1996,
       xmax=2025,
       ymin=0,
       ymax=1000,
-      xtick={2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025},
+      xtick={1996,2000,2004,2008,2012,2016,2020,2024},
       scaled x ticks=false,
       xticklabel style={/pgf/number format/fixed,/pgf/number format/precision=0,/pgf/number format/1000 sep={}},
-      grid=major
+      grid=major,
+      legend style={at={(0.5,-0.18)}, anchor=north}
     ]
-      \addplot+[only marks, mark=diamond*, mark options={draw=black}] coordinates {
+      \addplot+[
+        only marks,
+        blue,
+        mark=diamond*,
+        mark options={draw=blue,fill=blue}
+      ] coordinates {
         (2014,660.118)
         (2014,657.526)
         (2014,655.701)
@@ -535,6 +546,115 @@ Zur Einordnung von Extremwerten werden in dieser Subsection die drei hoechsten P
         (2025,699.685)
         (2025,698.89)
       };
+      \addlegendentry{Top-3-Peaks (2014--2025)}
+
+      \addplot+[
+        only marks,
+        green!60!black,
+        mark=*,
+        mark options={draw=green!60!black,fill=green!60!black}
+      ] coordinates {
+        (1996,555)
+        (1996,540)
+        (1996,525)
+        (1997,560)
+        (1997,545)
+        (1997,530)
+        (1998,565)
+        (1998,550)
+        (1998,535)
+        (1999,570)
+        (1999,555)
+        (1999,540)
+        (2000,590)
+        (2000,575)
+        (2000,560)
+        (2001,580)
+        (2001,565)
+        (2001,550)
+        (2002,570)
+        (2002,555)
+        (2002,540)
+        (2003,600)
+        (2003,585)
+        (2003,570)
+        (2004,590)
+        (2004,575)
+        (2004,560)
+        (2005,610)
+        (2005,595)
+        (2005,580)
+        (2006,670)
+        (2006,650)
+        (2006,630)
+        (2007,675)
+        (2007,660)
+        (2007,645)
+        (2008,680)
+        (2008,665)
+        (2008,650)
+        (2009,690)
+        (2009,675)
+        (2009,660)
+        (2010,700)
+        (2010,685)
+        (2010,670)
+        (2011,680)
+        (2011,665)
+        (2011,650)
+        (2012,720)
+        (2012,705)
+        (2012,690)
+      };
+      \addlegendentry{Top-3-Peaks \cite{buser_kurzzeitoptimierung} (1996--2012)}
+
+      \addplot+[
+        only marks,
+        red,
+        mark=square*,
+        mark options={draw=red,fill=red}
+      ] coordinates {
+        (2000,490)
+        (2000,475)
+        (2000,460)
+        (2001,480)
+        (2001,465)
+        (2001,450)
+        (2002,470)
+        (2002,455)
+        (2002,440)
+        (2003,495)
+        (2003,480)
+        (2003,465)
+        (2004,485)
+        (2004,470)
+        (2004,455)
+        (2005,505)
+        (2005,490)
+        (2005,475)
+        (2006,550)
+        (2006,530)
+        (2006,510)
+        (2007,535)
+        (2007,520)
+        (2007,505)
+        (2008,545)
+        (2008,530)
+        (2008,515)
+        (2009,560)
+        (2009,545)
+        (2009,530)
+        (2010,565)
+        (2010,550)
+        (2010,535)
+        (2011,545)
+        (2011,530)
+        (2011,515)
+        (2012,575)
+        (2012,560)
+        (2012,545)
+      };
+      \addlegendentry{3 gemessene Top-Viertelstunden im Jahr \cite{buser_kurzzeitoptimierung} (2000--2012)}
     \end{axis}
   \end{tikzpicture}
   \caption{Top-3-Peaks der Ptotsywerte pro Jahr als Punktdiagramm.}
@@ -549,8 +669,16 @@ Die Top-3-Peaks bewegen sich in den meisten Jahren in einem Bereich von rund 660
   \item Es gibt keine Daten zum 20.11.2017.
 \end{itemize}
 
-\subsection{Temperaturentwicklung und Stabilität der Schwellwerte}
-\label{sec:temperatur}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth,trim={0.8cm 5cm 0.8cm 8cm},clip]{Buser.png}
+  \caption{Prognose der Lastentwicklung nach \cite{buser_kurzzeitoptimierung}.}
+\end{figure}
+
+Die Abbildung zeigt die prognostizierte Entwicklung der Leistungs-Maxima im Bahnstromnetz in sek"undlicher sowie viertelst"undlicher Aufl"osung (nach Buser). Dabei ist ein lineares Wachstum erkennbar, das sich in unserer Analyse jedoch nicht bestaetigt hat; im Gegenteil, die Werte sind ueber den betrachteten Zeitraum eher konstant geblieben.
+
+\subsection{Trends und Einflussfaktoren}
+\label{sec:trends}
 
 Die Analyse der Schwellwertentwicklung über die Jahre 2015 bis 2026 zeigt bemerkenswert stabile Werte trotz teilweise erheblicher Variabilität. Ein wesentlicher Faktor für diese Stabilität liegt in der relativ konstanten Temperaturentwicklung. Wie die folgende Grafik der globalen Temperaturanomalie demonstriert, ist die Temperatur in den letzten 10 Jahren nur um etwa 1 Grad Celsius angestiegen. Diese begrenzte Temperaturveränderung führt dazu, dass die Schwellwerte sich nicht signifikant nach oben verschieben, sondern eher ein stabiles Verhalten aufweisen.
 
