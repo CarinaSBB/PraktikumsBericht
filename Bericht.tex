@@ -190,7 +190,7 @@ Darueber hinaus eignet sich Ptotsy fuer den Vergleich ueber verschiedene Zeitrae
 %\label{sec:methodik}
 \section{Analyse der Schwellwertentwicklung}
 \label{sec:analyse}
-In diesem Kapitel werden ausgewa­ehlte Kalenderwochen verschiedener Monate im Zeitraum 2015 bis 2025 analysiert. Fuer jede Woche werden die taeglichen Ptotsywerte herangezogen, um die Entwicklung und Trends der Schwellwerte zu untersuchen. Sowohl durchschnittliche als auch maximale Werte werden betrachtet.
+In diesem Kapitel werden sowohl ausgewaehlte Kalenderwochen als auch zusammengefasste Monatszeiträume im Zeitraum 2015 bis 2025 analysiert. Herangezogen werden taegliche Ptotsywerte sowie daraus abgeleitete harmonische Kennzahlen, um die Entwicklung und Trends der Schwellwerte zu untersuchen. Dabei werden sowohl durchschnittliche als auch maximale Werte betrachtet.
 
 \subsection{Analyse der 3. Januarwoche}
 \label{sec:analyse_januar}
@@ -671,11 +671,34 @@ Die Top-3-Peaks bewegen sich in den meisten Jahren in einem Bereich von rund 660
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth,trim={0.8cm 5cm 0.8cm 8cm},clip]{Buser.png}
+  \includegraphics[width=\textwidth,trim={0.8cm 5cm 0.8cm 8cm},clip]{images/Buser.png}
   \caption{Prognose der Lastentwicklung nach \cite{buser_kurzzeitoptimierung}.}
 \end{figure}
 
 Die Abbildung zeigt die prognostizierte Entwicklung der Leistungs-Maxima im Bahnstromnetz in sek"undlicher sowie viertelst"undlicher Aufl"osung (nach Buser). Dabei ist ein lineares Wachstum erkennbar, das sich in unserer Analyse jedoch nicht bestaetigt hat; im Gegenteil, die Werte sind ueber den betrachteten Zeitraum eher konstant geblieben.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/regression/LR_vorCrorna.png}
+  \caption{Lineare Regression der Lastentwicklung vor der COVID-19-Phase.}
+  \label{fig:lr_vor_corona}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/regression/LR_mitCorona.png}
+  \caption{Lineare Regression der Lastentwicklung waehrend der COVID-19-Phase.}
+  \label{fig:lr_mit_corona}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/regression/LR_nachCorona.png}
+  \caption{Lineare Regression der Lastentwicklung nach der COVID-19-Phase.}
+  \label{fig:lr_nach_corona}
+\end{figure}
+
+Die drei Abbildungen\footnote{Die Abbildungen \ref{fig:lr_vor_corona}, \ref{fig:lr_mit_corona} und \ref{fig:lr_nach_corona} wurden in Microsoft Excel erstellt: Zeitreihenwerte je Phase filtern, als Punktdiagramm darstellen, lineare Trendlinie hinzufuegen und anschliessend als PNG exportieren.} zeigen die lineare Lastentwicklung in den Phasen vor, waehrend und nach der COVID-19-Pandemie. Dadurch wird sichtbar, dass sich der Verlauf in der Pandemiephase deutlich von den angrenzenden Zeitraeumen unterscheidet und dass sich das Lastniveau nach der Pandemie wieder in Richtung des vorherigen Trends bewegt. Die Gegenueberstellung dient damit als visuelle Einordnung des beobachteten Strukturbruchs im Zeitraum 2020/2021.
 
 \subsection{Trends und Einflussfaktoren}
 \label{sec:trends}
@@ -694,6 +717,217 @@ Der Einfluss der Temperatur auf den Energiebedarf ist dabei erheblich: Im Heizbe
 
 \section{Ergebnisse}
 \label{sec:ergebnisse}
+
+\subsection{Vergleich der FFT-Harmonischen (Januar bis Februar, Tage 2--4)}
+\label{sec:fft_jan_feb_tage2_4}
+
+Die methodische Umsetzung der FFT-Analyse orientiert sich an der Praktikumsarbeit von Giorgia Cassis.\footcite{cassis_erste_schritte_weichenheizung}
+
+Die Auswertung ist für beide Zeiträume identisch aufgebaut: Zuerst werden Ziel, Methode und Datenbasis
+dokumentiert, anschließend werden die Kennzahlen tabellarisch verglichen und fachlich eingeordnet.
+
+\subsubsection{Ziel}
+Ziel ist der Vergleich der FFT-Ergebnisse der Jahre 2016, 2019, 2021, 2023 und 2025 anhand der Spalten
+\textit{k} (harmonische Ordnung) und Amplitude.
+
+\subsubsection{Methode}
+Für jedes Jahr wurde die jeweilige Summary-Datei eingelesen und auf die Spalten \textit{k} und
+\textit{amplitude} reduziert. Verwendet wurden die Datensätze für den Zeitraum Januar bis Februar
+(vom 6. Januar bis 28. Februar, jeweils für die Tage 2 bis 4). Anschließend wurden die Datensätze über \textit{k} zusammengeführt.
+Für den Kernvergleich werden folgende Differenzen ausgewertet:
+\[
+\Delta_{23-16} = A_{2023} - A_{2016}, \quad
+\Delta_{25-16} = A_{2025} - A_{2016}, \quad
+\Delta_{25-23} = A_{2025} - A_{2023}.
+\]
+
+\subsubsection{Datenbasis}
+Alle fünf Datensätze enthalten den vollständigen Bereich
+\[
+k = 1,2,\dots,86400.
+\]
+Damit ist ein vollständiger Vergleich ohne Einschränkung des \textit{k}-Bereichs möglich.
+
+\subsubsection{Kennzahlen}
+
+\paragraph{Mittelwert der Amplitude je Jahr}
+\begin{table}[H]
+\centering
+\begin{tabular}{lr}
+\toprule
+Jahr & Mittelwert Amplitude \\
+\midrule
+2016 & 0,179231 \\
+2019 & 0,148302 \\
+2021 & 0,147947 \\
+2023 & 0,148525 \\
+2025 & 0,155847 \\
+\bottomrule
+\end{tabular}
+\caption{Mittelwerte der Amplitude über alle harmonischen Ordnungen $k$ (Januar bis Februar, Tage 2--4)}
+\end{table}
+
+\paragraph{Vergleichsmetriken (über alle $k$)}
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrr}
+\toprule
+Metrik & 2023--2016 & 2025--2016 & 2025--2023 \\
+\midrule
+Mittlere Differenz & -0,030706 & -0,023384 & 0,007322 \\
+MAE (mittlere absolute Abweichung) & 0,042185 & 0,052032 & 0,013557 \\
+Maximale absolute Differenz & 6,895514 & 12,596616 & 5,701102 \\
+\bottomrule
+\end{tabular}
+\caption{Vergleich der Amplitudenreihen (Januar bis Februar, Tage 2--4)}
+\end{table}
+
+\subsubsection{Wesentliche Beobachtungen}
+\begin{itemize}
+  \item 2016 weist im Mittel die höchste Amplitudenlage auf; 2025 liegt innerhalb der neueren Jahre an der Spitze, aber weiterhin unter 2016.
+  \item 2019, 2021 und 2023 liegen sehr nahe beieinander und deutlich unter dem Niveau von 2016.
+  \item Gegenüber 2016 ist die mittlere Differenz für 2023 und 2025 negativ.
+  \item Die größten Unterschiede treten bei kleinen harmonischen Ordnungen (niedrige $k$) auf.
+  \item Beispiel für kleine $k$: bei $k=1$ gilt
+  \[
+  \begin{aligned}
+  A_{2016}&=224{,}985273,\quad A_{2019}=217{,}406174,\quad A_{2021}=221{,}542101,\\
+  A_{2023}&=218{,}089759,\quad A_{2025}=212{,}388657.
+  \end{aligned}
+  \]
+\end{itemize}
+
+\subsubsection{Interpretation}
+Die Differenzen bei niedrigen $k$ deuten auf Änderungen in den langsamen, tagesnahen Lastanteilen hin.
+Da kleine $k$ große Perioden repräsentieren ($T_k = 24/k$ Stunden), sind die beobachteten Abweichungen
+insbesondere für den Vergleich von Grundlast und Tagesgang relevant. Die negativen mittleren Differenzen
+gegenüber 2016 ($\Delta_{23-16}$ und $\Delta_{25-16}$) sprechen dafür, dass das Gesamtniveau im Zeitraum
+Januar bis Februar in den neueren Jahren eher unter dem Vergleichsjahr 2016 liegt. Gleichzeitig zeigt 2025
+gegenüber 2023 wieder eine leichte Zunahme.
+
+\subsubsection{Fazit}
+Der harmonische Vergleich über $k=1\dots86400$ im Zeitraum Januar bis Februar zeigt:
+\begin{enumerate}
+  \item das höchste mittlere Niveau in 2016,
+  \item ein sehr ähnliches, tieferes Niveau in 2019, 2021 und 2023,
+  \item eine leichte Erholung in 2025 gegenüber 2019, 2021 und 2023,
+  \item die stärksten Jahr-zu-Jahr-Unterschiede bei kleinen $k$.
+\end{enumerate}
+
+Die Ergebnisse für Januar bis Februar zeigen damit kein durchgängig steigendes Amplitudenniveau über die Jahre,
+sondern eher einen Rückgang gegenüber 2016 mit einer moderaten Gegenbewegung im Jahr 2025. Im nächsten Schritt
+wird geprüft, wie sich dieses Muster im Sommerzeitraum Juni bis August darstellt.
+
+\subsection{Vergleich der FFT-Harmonischen (Juni bis August, Tage 2--4)}
+\label{sec:fft_jun_aug_tage2_4}
+
+\subsubsection{Ziel}
+Ziel ist der Vergleich der FFT-Ergebnisse der fünf Jahre 2016, 2019, 2021, 2023 und 2025 anhand der Spalten
+\textit{k} (harmonische Ordnung) und Amplitude.
+
+\subsubsection{Methode}
+Für jedes Jahr wurde die jeweilige Summary-Datei eingelesen und auf die Spalten \textit{k} und
+\textit{amplitude} reduziert. Die methodischen Schritte entsprechen der Januar-bis-Februar-Analyse; die Datensätze
+wurden über \textit{k} zusammengeführt und über die folgenden Differenzen verglichen:
+\[
+\Delta_{23-16} = A_{2023} - A_{2016}, \quad
+\Delta_{25-16} = A_{2025} - A_{2016}, \quad
+\Delta_{25-23} = A_{2025} - A_{2023}.
+\]
+
+\subsubsection{Datenbasis}
+Alle fünf Datensätze enthalten den vollständigen Bereich
+\[
+k = 1,2,\dots,86400.
+\]
+Damit ist ein vollständiger Vergleich ohne Einschränkung des \textit{k}-Bereichs möglich.
+
+\subsubsection{Kennzahlen}
+
+\paragraph{Mittelwert der Amplitude je Jahr}
+\begin{table}[H]
+\centering
+\begin{tabular}{lr}
+\toprule
+Jahr & Mittelwert Amplitude \\
+\midrule
+2016 & 0,138100 \\
+2019 & 0,130053 \\
+2021 & 0,138413 \\
+2023 & 0,137598 \\
+2025 & 0,143206 \\
+\bottomrule
+\end{tabular}
+\caption{Mittelwerte der Amplitude über alle harmonischen Ordnungen $k$ (Juni bis August, Tage 2--4)}
+\end{table}
+
+\paragraph{Vergleichsmetriken (über alle $k$)}
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrr}
+\toprule
+Metrik & 2023--2016 & 2025--2016 & 2025--2023 \\
+\midrule
+Mittlere Differenz & -0,000502 & 0,005106 & 0,005608 \\
+MAE (mittlere absolute Abweichung) & 0,018215 & 0,016423 & 0,008653 \\
+Maximale absolute Differenz & 14,624891 & 10,341229 & 4,283663 \\
+\bottomrule
+\end{tabular}
+\caption{Vergleich der Amplitudenreihen (Juni bis August, Tage 2--4)}
+\end{table}
+
+\subsubsection{Wesentliche Beobachtungen}
+\begin{itemize}
+  \item 2025 weist den höchsten Mittelwert der Amplitude auf.
+  \item 2016, 2021 und 2023 liegen im Mittel sehr nahe beieinander; 2019 liegt darunter.
+  \item Gegenüber 2016 ist die mittlere Differenz für 2023 nahezu null, für 2025 jedoch positiv.
+  \item Die größten Unterschiede treten auch im Zeitraum Juni bis August bei kleinen harmonischen Ordnungen (niedrige $k$) auf.
+  \item Beispiel für kleine $k$: bei $k=1$ gilt
+  \[
+  \begin{aligned}
+  A_{2016}&=193{,}031108,\quad A_{2019}=181{,}482266,\quad A_{2021}=182{,}312191,\\
+  A_{2023}&=178{,}406217,\quad A_{2025}=182{,}689879.
+  \end{aligned}
+  \]
+\end{itemize}
+
+\subsubsection{Interpretation}
+Die Analyse für Juni bis August zeigt insgesamt ein deutlich stabileres Bild als im Zeitraum Januar bis Februar.
+Zwischen 2016, 2021 und 2023 sind die mittleren Amplituden nahezu gleich, während 2025 leicht darüber liegt.
+Gleichzeitig bleibt der größte Teil der Differenzen auf niedrige harmonische Ordnungen konzentriert, was auch
+hier auf Veränderungen in den langsameren Lastanteilen hinweist. Der saisonale Vergleich legt damit nahe,
+dass die winterlichen Unterschiede zwischen den Jahren stärker ausgeprägt sind als die sommerlichen.
+
+\subsubsection{Fazit}
+Der harmonische Vergleich über $k=1\dots86400$ im Zeitraum Juni bis August zeigt:
+\begin{enumerate}
+  \item den höchsten Mittelwert in 2025,
+  \item sehr ähnliche mittlere Niveaus in 2016, 2021 und 2023,
+  \item das tiefste mittlere Niveau in 2019,
+  \item die stärksten Jahr-zu-Jahr-Unterschiede bei kleinen $k$.
+\end{enumerate}
+
+\subsubsection{Grafischer Vergleich ausgewählter Harmonischer}
+Die folgenden Balkendiagramme fassen die Werte für die harmonischen Ordnungen
+$k=8,12,24,48,96,288,1440$ zusammen. Sowohl für den Zeitraum Januar bis Februar als auch für den Zeitraum Juni bis August werden die Jahre direkt je $k$ verglichen. Die Auswahl solcher diskreten Frequenzkomponenten knüpft an die Betrachtung charakteristischer Frequenzanteile des Bahnstromlastgangs an, wie sie auch bei \cite{bosch_frequenzkomponenten_bahnstromlastgangs} diskutiert wird.
+
+\paragraph{Zeitraum Januar bis Februar}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/k_barplots_by_year/k_barplot_grouped_years_kwfrom.png}
+  \caption{Zeitraum Januar bis Februar: Vergleich ausgewählter harmonischer Ordnungen ($k=8,12,24,48,96,288,1440$) über die Jahre. Die Balken sind pro $k$ nach Jahr gruppiert.}
+  \label{fig:k_grouped_years_kwfrom}
+\end{figure}
+
+\paragraph{Zeitraum Juni bis August}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/k_barplots_by_year/k_barplot_grouped_years_kwfrom_jun_aug.png}
+  \caption{Zeitraum Juni bis August: Vergleich ausgewählter harmonischer Ordnungen ($k=8,12,24,48,96,288,1440$) über die Jahre. Die Balken sind pro $k$ nach Jahr gruppiert.}
+  \label{fig:k_grouped_years_kwfrom_jun_aug}
+\end{figure}
 
 \section{Diskussion}
 \label{sec:diskussion}
