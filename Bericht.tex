@@ -136,11 +136,11 @@
 % Danksagung
 \section*{Danksagung}
 \addcontentsline{toc}{section}{Danksagung}
-An dieser Stelle moechte ich mich herzlich bei allen Personen bedanken, die mich bei der Erstellung dieser Arbeit unterstuetzt haben.
+An dieser Stelle möchte ich mich herzlich bei allen Personen bedanken, die mich bei der Erstellung dieser Arbeit unterstützt haben.
 
-Mein besonderer Dank gilt meinem Betreuer Andreas Fuchs fuer die fachliche Begleitung, die wertvollen Rueckmeldungen und die konstruktiven Impulse waehrend des gesamten Projektverlaufs.
+Mein besonderer Dank gilt meinem Betreuer Andreas Fuchs für die fachliche Begleitung, die wertvollen Rückmeldungen und die konstruktiven Impulse während des gesamten Projektverlaufs.
 
-Ebenso danke ich dem Team von SBB Energie fuer die offene Zusammenarbeit, den praxisnahen Austausch sowie die Bereitstellung der notwendigen Daten und Rahmenbedingungen. Insbesondere danke ich Roland Schäfer und Mara Schafroth fuer das technische Onboarding und dafuer, dass sie jederzeit fuer Fragen da waren.
+Ebenso danke ich dem Team von SBB Energie für die offene Zusammenarbeit, den praxisnahen Austausch sowie die Bereitstellung der notwendigen Daten und Rahmenbedingungen. Insbesondere danke ich Roland Schäfer und Mara Schafroth für das technische Onboarding und dafür, dass sie jederzeit für Fragen da waren.
 
 \clearpage
 
@@ -178,25 +178,25 @@ Motivation, Problemstellung, Zielsetzung, Aufbau der Arbeit.
 
 \section{Stand der Technik / Theoretischer Hintergrund}
 \label{sec:stand}
-Die vorliegende Analyse basiert auf der Kennzahl Ptotsy, die in diesem Bericht als zentrale Groesse zur Beschreibung der taeglichen Systemlast verwendet wird. Ptotsy bildet die aggregierte elektrische Last im betrachteten Bahnstromsystem ab und wird in MW ausgewiesen. Damit repraesentiert der Wert, wie stark das Gesamtsystem an einem bestimmten Zeitpunkt bzw. ueber einen Tag hinweg beansprucht wird.
+Die vorliegende Analyse basiert auf der Kennzahl Ptotsy, die in diesem Bericht als zentrale Größe zur Beschreibung der täglichen Systemlast verwendet wird. Ptotsy bildet die aggregierte elektrische Last im betrachteten Bahnstromsystem ab und wird in MW ausgewiesen. Damit repräsentiert der Wert, wie stark das Gesamtsystem an einem bestimmten Zeitpunkt bzw. über einen Tag hinweg beansprucht wird.
 
-Fachlich ist Ptotsy fuer die Schwellwertsetzung besonders geeignet, weil die Kennzahl gleichzeitig typische Betriebszustaende und Extremzustände sichtbar macht. Der Mittelwert beschreibt das normale Lastniveau im Regelbetrieb, waehrend hohe Quantile und Maximalwerte auf Lastspitzen hinweisen, die fuer die Betriebssicherheit und Reserveplanung relevant sind. Zusaetzlich liefert die Varianz Informationen ueber die Stabilitaet des Lastverlaufs: Eine hohe Streuung deutet auf stark schwankende Betriebsbedingungen hin, eine tiefe Streuung auf einen gleichmaessigeren Betrieb.
+Fachlich ist Ptotsy für die Schwellwertsetzung besonders geeignet, weil die Kennzahl gleichzeitig typische Betriebszustände und Extremzustände sichtbar macht. Der Mittelwert beschreibt das normale Lastniveau im Regelbetrieb, während hohe Quantile und Maximalwerte auf Lastspitzen hinweisen, die für die Betriebssicherheit und Reserveplanung relevant sind. Zusätzlich liefert die Varianz Informationen über die Stabilität des Lastverlaufs: Eine hohe Streuung deutet auf stark schwankende Betriebsbedingungen hin, eine tiefe Streuung auf einen gleichmäßigeren Betrieb.
 
-Im Kontext der Betriebsfuehrung ermoeglicht Ptotsy somit eine datenbasierte Ableitung robuster Schwellwerte. Schwellwerte muessen einerseits stabil genug sein, um im Normalbetrieb keine haeufigen Fehlalarme auszuloesen, und andererseits sensitiv genug, um bei aussergewoehnlichen Lastsituationen fruehzeitig zu reagieren. Die Kombination aus Mittelwert, Varianz sowie oberen Perzentilen (p95 und p99) bietet dafuer eine belastbare Grundlage, da sowohl das Basisniveau als auch kritische Lastbereiche systematisch beruecksichtigt werden.
+Im Kontext der Betriebsführung ermöglicht Ptotsy somit eine datenbasierte Ableitung robuster Schwellwerte. Schwellwerte müssen einerseits stabil genug sein, um im Normalbetrieb keine häufigen Fehlalarme auszulösen, und andererseits sensitiv genug, um bei außergewöhnlichen Lastsituationen frühzeitig zu reagieren. Die Kombination aus Mittelwert, Varianz sowie oberen Perzentilen (p95 und p99) bietet dafür eine belastbare Grundlage, da sowohl das Basisniveau als auch kritische Lastbereiche systematisch berücksichtigt werden.
 
-Darueber hinaus eignet sich Ptotsy fuer den Vergleich ueber verschiedene Zeitraeume (z. B. Wochen, Monate, Jahre), wodurch strukturelle Veraenderungen im Lastprofil sichtbar werden. Exogene Einfluesse wie Fahrplananpassungen, betriebliche Sonderlagen oder Witterungseffekte koennen so quantifiziert und in der Interpretation der Schwellwertentwicklung nachvollziehbar eingeordnet werden.
+Darüber hinaus eignet sich Ptotsy für den Vergleich über verschiedene Zeiträume (z. B. Wochen, Monate, Jahre), wodurch strukturelle Veränderungen im Lastprofil sichtbar werden. Exogene Einflüsse wie Fahrplananpassungen, betriebliche Sonderlagen oder Witterungseffekte können so quantifiziert und in der Interpretation der Schwellwertentwicklung nachvollziehbar eingeordnet werden.
 
 %\section{Methodik}
 %\label{sec:methodik}
 \section{Analyse der Schwellwertentwicklung}
 \label{sec:analyse}
-In diesem Kapitel werden sowohl ausgewaehlte Kalenderwochen als auch zusammengefasste Monatszeiträume im Zeitraum 2015 bis 2025 analysiert. Herangezogen werden taegliche Ptotsywerte sowie daraus abgeleitete harmonische Kennzahlen, um die Entwicklung und Trends der Schwellwerte zu untersuchen. Dabei werden sowohl durchschnittliche als auch maximale Werte betrachtet.
+In diesem Kapitel werden sowohl ausgewählte Kalenderwochen als auch zusammengefasste Monatszeiträume im Zeitraum 2015 bis 2025 analysiert. Herangezogen werden tägliche Ptotsywerte sowie daraus abgeleitete harmonische Kennzahlen, um die Entwicklung und Trends der Schwellwerte zu untersuchen. Dabei werden sowohl durchschnittliche als auch maximale Werte betrachtet.
 
 \subsection{Analyse der 3. Januarwoche}
 \label{sec:analyse_januar}
-In dieser Analyse wird jeweils die dritte Januarwoche der Jahre 2015 bis 2025 betrachtet. Grundlage sind die taeglichen Ptotsywerte, mit denen die Entwicklung der Schwellwerte ueber den gesamten Zeitraum untersucht wird. Dazu werden sowohl die durchschnittlichen als auch die maximalen Ptotsywerte ausgewertet, um Trends und moegliche Veraenderungen in der Schwellwertsetzung zu identifizieren. Die Ergebnisse werden grafisch dargestellt, um zeitliche Muster sowie Auffaelligkeiten nachvollziehbar zu machen.
-Das Jahr 2018 wird gesondert betrachtet, da die Datumsstruktur von den uebrigen Jahren abweicht und die Daten im aktuellen Code nicht direkt eingelesen werden.
-Die folgenden Mittelwerte der Ptotsywerte ergeben sich fuer die dritte Januarwoche in den Jahren 2015 bis 2025:
+In dieser Analyse wird jeweils die dritte Januarwoche der Jahre 2015 bis 2025 betrachtet. Grundlage sind die täglichen Ptotsywerte, mit denen die Entwicklung der Schwellwerte über den gesamten Zeitraum untersucht wird. Dazu werden sowohl die durchschnittlichen als auch die maximalen Ptotsywerte ausgewertet, um Trends und mögliche Veränderungen in der Schwellwertsetzung zu identifizieren. Die Ergebnisse werden grafisch dargestellt, um zeitliche Muster sowie Auffälligkeiten nachvollziehbar zu machen.
+Das Jahr 2018 wird gesondert betrachtet, da die Datumsstruktur von den übrigen Jahren abweicht und die Daten im aktuellen Code nicht direkt eingelesen werden.
+Die folgenden Mittelwerte der Ptotsywerte ergeben sich für die dritte Januarwoche in den Jahren 2015 bis 2025:
 
 \begin{table}[H]
   \centering
@@ -261,12 +261,12 @@ Die folgenden Mittelwerte der Ptotsywerte ergeben sich fuer die dritte Januarwoc
   \caption{Varianz der Ptotsywerte der letzten 10 Jahre in der 3. Januarwoche.}
 \end{figure}
 
-Auffaellig sind die erheblichen Unterschiede zwischen den einzelnen Jahren. Die Jahre 2016 und 2017 zeigen deutlich hoehre Mittelwerte (348.16 und 350.38), waehrend die Jahre 2020 und 2021 merklich tiefere Werte aufweisen (304.27 und 304.43). Dies laesst sich wahrscheinlich auf die COVID-19-Pandemie zurueckfuehren, welche einen verkürzten Fahrplan und geaenderte Zugkompositionen zur Folge hatte. Die Reduktion der Ptotsywerte in diesen Jahren deutet auf eine gesamt niedrigere Systemlast hin. Dieses Muster der erhoehten Werte in 2016 und 2017 sowie der reduzierten Werte in 2020 und 2021 zeigt sich konsistent auch in der vierten Juniwoche und deutet auf eine systemweite Auswirkung dieser Effekte hin.
+Auffällig sind die erheblichen Unterschiede zwischen den einzelnen Jahren. Die Jahre 2016 und 2017 zeigen deutlich höhere Mittelwerte (348.16 und 350.38), während die Jahre 2020 und 2021 merklich tiefere Werte aufweisen (304.27 und 304.43). Dies lässt sich wahrscheinlich auf die COVID-19-Pandemie zurückführen, welche einen verkürzten Fahrplan und geänderte Zugkompositionen zur Folge hatte. Die Reduktion der Ptotsywerte in diesen Jahren deutet auf eine gesamt niedrigere Systemlast hin. Dieses Muster der erhöhten Werte in 2016 und 2017 sowie der reduzierten Werte in 2020 und 2021 zeigt sich konsistent auch in der vierten Juniwoche und deutet auf eine systemweite Auswirkung dieser Effekte hin.
 
 \subsection{Analyse der 4. Juniwoche}
 \label{sec:analyse_juni}
-In dieser Analyse wird jeweils die vierte Juniwoche der Jahre 2015 bis 2025 betrachtet. Grundlage sind wiederum die taeglichen Ptotsywerte, mit denen die Entwicklung der Schwellwerte ueber den gesamten Zeitraum untersucht wird. Dazu werden sowohl die durchschnittlichen als auch die maximalen Ptotsywerte ausgewertet, um Trends und moegliche Veraenderungen in der Schwellwertsetzung zu identifizieren.
-Die folgenden Mittelwerte der Ptotsywerte ergeben sich fuer die vierte Juniwoche in den Jahren 2015 bis 2025:
+In dieser Analyse wird jeweils die vierte Juniwoche der Jahre 2015 bis 2025 betrachtet. Grundlage sind wiederum die täglichen Ptotsywerte, mit denen die Entwicklung der Schwellwerte über den gesamten Zeitraum untersucht wird. Dazu werden sowohl die durchschnittlichen als auch die maximalen Ptotsywerte ausgewertet, um Trends und mögliche Veränderungen in der Schwellwertsetzung zu identifizieren.
+Die folgenden Mittelwerte der Ptotsywerte ergeben sich für die vierte Juniwoche in den Jahren 2015 bis 2025:
 
 \begin{table}[H]
   \centering
@@ -331,11 +331,11 @@ Die folgenden Mittelwerte der Ptotsywerte ergeben sich fuer die vierte Juniwoche
   \caption{Varianz der Ptotsywerte der letzten 10 Jahre in der 4. Juniwoche.}
 \end{figure}
 
-Auch in der vierten Juniwoche sind auffaellige Unterschiede zwischen den Jahren erkennbar. Die Jahre 2016 und 2017 weisen mit 277.33 und 275.25 erheblich hoehre Mittelwerte auf, waehrend insbesondere das Jahr 2020 mit einem Mittelwert von 250.80 die niedrigsten Werte zeigt. Die Jahre 2020 und 2021 (250.80 und 257.59) liegen deutlich unter dem Durchschnitt der gesamten Periode, was ebenfalls auf die Auswirkungen der COVID-19-Pandemie zurueckzufuehren ist. Der verkürzter Fahrplan und die Anpassungen in der Zugkomposition bedingt durch die Pandemie fuehrten zu einer reduzierten Systemlast in dieser Woche.
+Auch in der vierten Juniwoche sind auffällige Unterschiede zwischen den Jahren erkennbar. Die Jahre 2016 und 2017 weisen mit 277.33 und 275.25 erheblich höhere Mittelwerte auf, während insbesondere das Jahr 2020 mit einem Mittelwert von 250.80 die niedrigsten Werte zeigt. Die Jahre 2020 und 2021 (250.80 und 257.59) liegen deutlich unter dem Durchschnitt der gesamten Periode, was ebenfalls auf die Auswirkungen der COVID-19-Pandemie zurückzuführen ist. Der verkürzter Fahrplan und die Anpassungen in der Zugkomposition bedingt durch die Pandemie führten zu einer reduzierten Systemlast in dieser Woche.
 
 \subsection{Analyse der Januar-Monatswerte}
 \label{sec:analyse_januar_monat}
-Zusaetzlich zur Wochenbetrachtung werden hier die aggregierten Monatswerte fuer Januar ausgewertet. Die folgenden Kennzahlen (Mittelwert, Varianz, 95\%-Perzentilwert (p95) und 99\%-Perzentilwert (p99)) beziehen sich auf die Jahre 2017 bis 2026.
+Zusätzlich zur Wochenbetrachtung werden hier die aggregierten Monatswerte für Januar ausgewertet. Die folgenden Kennzahlen (Mittelwert, Varianz, 95\%-Perzentilwert (p95) und 99\%-Perzentilwert (p99)) beziehen sich auf die Jahre 2017 bis 2026.
 
 \begin{table}[H]
   \centering
@@ -382,11 +382,11 @@ Zusaetzlich zur Wochenbetrachtung werden hier die aggregierten Monatswerte fuer 
   \caption{Perzentile: 95\%-Perzentilwert (p95) und 99\%-Perzentilwert (p99) der Ptotsywerte im Monat Januar (2017 bis 2026).}
 \end{figure}
 
-Die Januar-Monatswerte zeigen ueber den betrachteten Zeitraum insgesamt ein stabiles Niveau mit erkennbaren Ausreissern in einzelnen Jahren. Insbesondere 2017 und 2019 liegen beim Mittelwert sowie bei den oberen Quantilen ueber dem Grossteil der restlichen Jahre.
+Die Januar-Monatswerte zeigen über den betrachteten Zeitraum insgesamt ein stabiles Niveau mit erkennbaren Ausreissern in einzelnen Jahren. Insbesondere 2017 und 2019 liegen beim Mittelwert sowie bei den oberen Quantilen über dem Grossteil der restlichen Jahre.
 
 \subsection{Analyse der Juni-Monatswerte}
 \label{sec:analyse_juni_monat}
-Zusaetzlich zur Wochenbetrachtung werden hier die aggregierten Monatswerte fuer Juni ausgewertet. Die folgenden Kennzahlen (Mittelwert, Varianz, 95\%-Perzentilwert (p95) und 99\%-Perzentilwert (p99)) beziehen sich auf die Jahre 2017 bis 2025.
+Zusätzlich zur Wochenbetrachtung werden hier die aggregierten Monatswerte für Juni ausgewertet. Die folgenden Kennzahlen (Mittelwert, Varianz, 95\%-Perzentilwert (p95) und 99\%-Perzentilwert (p99)) beziehen sich auf die Jahre 2017 bis 2025.
 
 \begin{table}[H]
   \centering
@@ -432,11 +432,11 @@ Zusaetzlich zur Wochenbetrachtung werden hier die aggregierten Monatswerte fuer 
   \caption{Perzentile: 95\%-Perzentilwert (p95) und 99\%-Perzentilwert (p99) der Ptotsywerte im Monat Juni (2017 bis 2025).}
 \end{figure}
 
-Die Juni-Monatswerte zeigen ein insgesamt stabiles Niveau zwischen 2017 und 2025, mit einem klaren Rueckgang im Jahr 2020. Dieser Rueckgang ist sowohl beim Mittelwert als auch bei den hohen Quantilen 95\%-Perzentilwert (p95) und 99\%-Perzentilwert (p99) sichtbar und ist plausibel auf die Auswirkungen der COVID-19-Pandemie zurueckzufuehren. Der waehrend dieser Zeit reduzierte Fahrplan und veraenderte Zugkompositionen fuehrten zu einer niedrigeren Systemlast.
+Die Juni-Monatswerte zeigen ein insgesamt stabiles Niveau zwischen 2017 und 2025, mit einem klaren Rückgang im Jahr 2020. Dieser Rückgang ist sowohl beim Mittelwert als auch bei den hohen Quantilen 95\%-Perzentilwert (p95) und 99\%-Perzentilwert (p99) sichtbar und ist plausibel auf die Auswirkungen der COVID-19-Pandemie zurückzuführen. Der während dieser Zeit reduzierte Fahrplan und veränderte Zugkompositionen führten zu einer niedrigeren Systemlast.
 
 \subsection{Top-3-Peaks pro Jahr}
 \label{sec:top3_peaks_jahr}
-Zur Einordnung von Extremwerten werden in dieser Subsection die drei hoechsten Ptotsywerte pro Jahr fuer den Zeitraum 2014 bis 2025 dargestellt.
+Zur Einordnung von Extremwerten werden in dieser Subsection die drei höchsten Ptotsywerte pro Jahr für den Zeitraum 2014 bis 2025 dargestellt.
 
 \begin{table}[H]
   \centering
@@ -660,7 +660,7 @@ Zur Einordnung von Extremwerten werden in dieser Subsection die drei hoechsten P
   \caption{Top-3-Peaks der Ptotsywerte pro Jahr als Punktdiagramm.}
 \end{figure}
 
-Die Top-3-Peaks bewegen sich in den meisten Jahren in einem Bereich von rund 660 bis 760\,MW. In frueheren Datenstaenden traten in den Jahren 2019, 2016 und 2014 Ausreisser auf, die als potenzielle Fehlmessungen identifiziert wurden. Der Code wurde entsprechend angepasst, um solche Faelle robuster zu erkennen und in der Auswertung angemessen zu behandeln.
+Die Top-3-Peaks bewegen sich in den meisten Jahren in einem Bereich von rund 660 bis 760\,MW. In früheren Datenständen traten in den Jahren 2019, 2016 und 2014 Ausreisser auf, die als potenzielle Fehlmessungen identifiziert wurden. Der Code wurde entsprechend angepasst, um solche Fälle robuster zu erkennen und in der Auswertung angemessen zu behandeln.
 
 \subsection{Varia}
 \label{sec:varia}
@@ -675,7 +675,7 @@ Die Top-3-Peaks bewegen sich in den meisten Jahren in einem Bereich von rund 660
   \caption{Prognose der Lastentwicklung nach \cite{buser_kurzzeitoptimierung}.}
 \end{figure}
 
-Die Abbildung zeigt die prognostizierte Entwicklung der Leistungs-Maxima im Bahnstromnetz in sek"undlicher sowie viertelst"undlicher Aufl"osung (nach Buser). Dabei ist ein lineares Wachstum erkennbar, das sich in unserer Analyse jedoch nicht bestaetigt hat; im Gegenteil, die Werte sind ueber den betrachteten Zeitraum eher konstant geblieben.
+Die Abbildung zeigt die prognostizierte Entwicklung der Leistungs-Maxima im Bahnstromnetz in sek"undlicher sowie viertelst"undlicher Aufl"osung (nach Buser). Dabei ist ein lineares Wachstum erkennbar, das sich in unserer Analyse jedoch nicht bestätigt hat; im Gegenteil, die Werte sind über den betrachteten Zeitraum eher konstant geblieben.
 
 \begin{figure}[H]
   \centering
@@ -687,7 +687,7 @@ Die Abbildung zeigt die prognostizierte Entwicklung der Leistungs-Maxima im Bahn
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\textwidth]{images/regression/LR_mitCorona.png}
-  \caption{Lineare Regression der Lastentwicklung waehrend der COVID-19-Phase.}
+  \caption{Lineare Regression der Lastentwicklung während der COVID-19-Phase.}
   \label{fig:lr_mit_corona}
 \end{figure}
 
@@ -698,7 +698,7 @@ Die Abbildung zeigt die prognostizierte Entwicklung der Leistungs-Maxima im Bahn
   \label{fig:lr_nach_corona}
 \end{figure}
 
-Die drei Abbildungen\footnote{Die Abbildungen \ref{fig:lr_vor_corona}, \ref{fig:lr_mit_corona} und \ref{fig:lr_nach_corona} wurden in Microsoft Excel erstellt: Zeitreihenwerte je Phase filtern, als Punktdiagramm darstellen, lineare Trendlinie hinzufuegen und anschliessend als PNG exportieren.} zeigen die lineare Lastentwicklung in den Phasen vor, waehrend und nach der COVID-19-Pandemie. Dadurch wird sichtbar, dass sich der Verlauf in der Pandemiephase deutlich von den angrenzenden Zeitraeumen unterscheidet und dass sich das Lastniveau nach der Pandemie wieder in Richtung des vorherigen Trends bewegt. Die Gegenueberstellung dient damit als visuelle Einordnung des beobachteten Strukturbruchs im Zeitraum 2020/2021.
+Die drei Abbildungen\footnote{Die Abbildungen \ref{fig:lr_vor_corona}, \ref{fig:lr_mit_corona} und \ref{fig:lr_nach_corona} wurden in Microsoft Excel erstellt: Zeitreihenwerte je Phase filtern, als Punktdiagramm darstellen, lineare Trendlinie hinzufügen und anschliessend als PNG exportieren.} zeigen die lineare Lastentwicklung in den Phasen vor, während und nach der COVID-19-Pandemie. Dadurch wird sichtbar, dass sich der Verlauf in der Pandemiephase deutlich von den angrenzenden Zeiträumen unterscheidet und dass sich das Lastniveau nach der Pandemie wieder in Richtung des vorherigen Trends bewegt. Die Gegenüberstellung dient damit als visuelle Einordnung des beobachteten Strukturbruchs im Zeitraum 2020/2021.
 
 \subsection{Trends und Einflussfaktoren}
 \label{sec:trends}
@@ -710,6 +710,15 @@ Die Analyse der Schwellwertentwicklung über die Jahre 2015 bis 2026 zeigt bemer
   \includegraphics[width=0.95\textwidth]{images/climate-webimage_temperature_loess_de.png}
   \caption{Temperaturanomalie seit 1901 bis heute. Der Fokus liegt auf den letzten 10 Jahren, in denen die Temperatur um etwa 1 Grad Celsius angestiegen ist. Diese begrenzte Temperaturveränderung erklärt die stabilen Schwellwerte in der Analysepeiode. \\ \small Quelle: MeteoSchweiz, \url{https://www.meteoschweiz.admin.ch/service-und-publikationen/applikationen/ext/climate-evolution-series-public.html}}
 \end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{images/Januar_Temperatur_2017.png}
+  \caption{Januar-Temperaturverlauf 2017 als Kontext zur Lastentwicklung. Die im Mittel tieferen Temperaturen sind mit einem erhöhten Heizbedarf und damit mit höheren Ptotsywerten vereinbar.}
+  \label{fig:januar_temp_2017}
+\end{figure}
+
+Die zusätzliche Januarbetrachtung ordnet das Jahr 2017 als kältegeprägten Vergleichsmonat ein: Die höhere Last ist konsistent mit tieferen Temperaturen und dem daraus resultierenden Heizbedarf. Die Abbildung liefert damit eine plausible Erklärung für das erhöhte Lastniveau, ersetzt jedoch keine vollständige multivariate Ursachenanalyse.
 
 Der stabile Temperaturtrend steht in Einklang mit den beobachteten Schwellwertmustern. Während exogene Schocks wie die COVID-19-Pandemie zu kurzfristigen Reduktionen der Systemlast führten, bleibt der langfristige Trend durch die moderate Temperaturentwicklung geprägt. Dies unterstreicht die Bedeutung von Klimafaktoren bei der Schwellwertsetzung und deren Projektion in die Zukunft.
 
