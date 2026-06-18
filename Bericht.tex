@@ -194,10 +194,11 @@ In diesem Kapitel werden sowohl ausgewählte Kalenderwochen als auch zusammengef
 
 \subsection{Analyse der 3. Januarwoche}
 \label{sec:analyse_januar}
-In dieser Analyse wird jeweils die dritte Januarwoche der Jahre 2015 bis 2025 betrachtet. Grundlage sind die täglichen Ptotsywerte, mit denen die Entwicklung der Schwellwerte über den gesamten Zeitraum untersucht wird. Dazu werden sowohl die durchschnittlichen als auch die maximalen Ptotsywerte ausgewertet, um Trends und mögliche Veränderungen in der Schwellwertsetzung zu identifizieren. Die Ergebnisse werden grafisch dargestellt, um zeitliche Muster sowie Auffälligkeiten nachvollziehbar zu machen.
+In dieser Analyse wird jeweils die dritte Januarwoche der Jahre 2014 bis 2025 betrachtet. Grundlage sind die täglichen Ptotsywerte, mit denen die Entwicklung der Schwellwerte über den gesamten Zeitraum untersucht wird. Dazu werden sowohl die durchschnittlichen als auch die maximalen Ptotsywerte ausgewertet, um Trends und mögliche Veränderungen in der Schwellwertsetzung zu identifizieren. Die Ergebnisse werden grafisch dargestellt, um zeitliche Muster sowie Auffälligkeiten nachvollziehbar zu machen.
 Das Jahr 2018 wird gesondert betrachtet, da die Datumsstruktur von den übrigen Jahren abweicht und die Daten im aktuellen Code nicht direkt eingelesen werden.
-Die folgenden Mittelwerte der Ptotsywerte ergeben sich für die dritte Januarwoche in den Jahren 2015 bis 2025:
+Die Mittelwerte und Varianzen der Ptotsywerte für die dritte Januarwoche sind in den folgenden Abbildungen dargestellt:
 
+\iffalse
 \begin{table}[H]
   \centering
   \begin{minipage}[t]{0.48\textwidth}
@@ -207,16 +208,18 @@ Die folgenden Mittelwerte der Ptotsywerte ergeben sich für die dritte Januarwoc
       \toprule
       Jahr & Mittelwert \\
       \midrule
-      2025 & 314.341 \\
-      2024 & 319.598 \\
-      2023 & 323.528 \\
-      2022 & 311.664 \\
-      2021 & 304.430 \\
-      2020 & 304.275 \\
-      2019 & 313.493 \\
-      2018 & 303.437 \\
-      2017 & 350.383 \\
+      2014 & 301.321 \\
+      2015 & 320.537 \\
       2016 & 348.162 \\
+      2017 & 350.383 \\
+      2018 & 303.437 \\
+      2019 & 313.493 \\
+      2020 & 304.275 \\
+      2021 & 304.430 \\
+      2022 & 311.664 \\
+      2023 & 323.528 \\
+      2024 & 319.598 \\
+      2025 & 314.341 \\
       \bottomrule
     \end{tabular}
   \end{minipage}
@@ -228,36 +231,39 @@ Die folgenden Mittelwerte der Ptotsywerte ergeben sich für die dritte Januarwoc
       \toprule
       Jahr & Varianz \\
       \midrule
-      2025 & 10552.442 \\
-      2024 & 9629.283 \\
-      2023 & 9860.162 \\
-      2022 & 8722.021 \\
-      2021 & 8235.471 \\
-      2020 & 9184.714 \\
-      2019 & 10735.115 \\
-      2018 & 9609.851 \\
-      2017 & 9946.879 \\
+      2014 & 7620.816 \\
+      2015 & 8529.172 \\
       2016 & 10203.375 \\
+      2017 & 9946.879 \\
+      2018 & 9609.851 \\
+      2019 & 10735.115 \\
+      2020 & 9184.714 \\
+      2021 & 8235.471 \\
+      2022 & 8722.021 \\
+      2023 & 9860.162 \\
+      2024 & 9629.283 \\
+      2025 & 10552.442 \\
       \bottomrule
     \end{tabular}
   \end{minipage}
 \end{table}
+\fi
 
 \begin{figure}
   \centering
-  \includegraphics[page=1,scale=0.8,trim={1.2cm 1.4cm 1.2cm 2.2cm},clip]{images/ptotsys_month1_week3_comparison_with_means.html.pdf}
+  \includegraphics[width=0.95\textwidth,trim={0.5cm 1cm 1cm 2.9cm},clip]{images/ptotsys_month1_week3.png}
   \caption{Ptotsywerte der letzten 10 Jahre in der 3. Januarwoche.}
 \end{figure}
 \clearpage
 \begin{figure}
   \centering
-  \includegraphics[page=2,width=0.95\textwidth,trim={1.2cm 25cm 9.5cm 1.2cm},clip]{images/ptotsys_month1_week3_comparison_with_means.html.pdf}\\[0.8cm]
+  \includegraphics[width=0.95\textwidth,trim={0.9cm 1.4cm 2.8cm 2.9cm},clip]{images/Januar_Woche_Mittelwert.png}\\[0.8cm]
   \caption{Mittelwerte der Ptotsywerte der letzten 10 Jahre in der 3. Januarwoche, erste Darstellung.}
 \end{figure}
 
 \begin{figure}
   \centering
-  \includegraphics[page=2,width=0.95\textwidth,trim={12cm 25cm 1.2cm 1cm},clip]{images/ptotsys_month1_week3_comparison_with_means.html.pdf} % trim={<left> <lower> <right> <upper>}
+  \includegraphics[width=0.95\textwidth,trim={0.9cm 1.4cm 2.8cm 2.9cm},clip]{images/Januar_Woche_Varianz.png}
   \caption{Varianz der Ptotsywerte der letzten 10 Jahre in der 3. Januarwoche.}
 \end{figure}
 
@@ -266,8 +272,9 @@ Auffällig sind die erheblichen Unterschiede zwischen den einzelnen Jahren. Die 
 \subsection{Analyse der 4. Juniwoche}
 \label{sec:analyse_juni}
 In dieser Analyse wird jeweils die vierte Juniwoche der Jahre 2015 bis 2025 betrachtet. Grundlage sind wiederum die täglichen Ptotsywerte, mit denen die Entwicklung der Schwellwerte über den gesamten Zeitraum untersucht wird. Dazu werden sowohl die durchschnittlichen als auch die maximalen Ptotsywerte ausgewertet, um Trends und mögliche Veränderungen in der Schwellwertsetzung zu identifizieren.
-Die folgenden Mittelwerte der Ptotsywerte ergeben sich für die vierte Juniwoche in den Jahren 2015 bis 2025:
+Die Mittelwerte und Varianzen der Ptotsywerte für die vierte Juniwoche sind in den folgenden Abbildungen dargestellt:
 
+\iffalse
 \begin{table}[H]
   \centering
   \begin{minipage}[t]{0.48\textwidth}
@@ -277,16 +284,16 @@ Die folgenden Mittelwerte der Ptotsywerte ergeben sich für die vierte Juniwoche
       \toprule
       Jahr & Mittelwert \\
       \midrule
-      2025 & 270.634 \\
-      2024 & 265.855 \\
-      2023 & 266.106 \\
-      2022 & 264.347 \\
-      2021 & 257.588 \\
-      2020 & 250.801 \\
-      2019 & 270.958 \\
-      2018 & 265.025 \\
-      2017 & 275.250 \\
       2016 & 277.329 \\
+      2017 & 275.250 \\
+      2018 & 265.025 \\
+      2019 & 270.958 \\
+      2020 & 250.801 \\
+      2021 & 257.588 \\
+      2022 & 264.347 \\
+      2023 & 266.106 \\
+      2024 & 265.855 \\
+      2025 & 270.634 \\
       \bottomrule
     \end{tabular}
   \end{minipage}
@@ -298,36 +305,37 @@ Die folgenden Mittelwerte der Ptotsywerte ergeben sich für die vierte Juniwoche
       \toprule
       Jahr & Varianz \\
       \midrule
-      2025 & 10552.442 \\
-      2024 & 9629.283 \\
-      2023 & 9860.162 \\
-      2022 & 8722.021 \\
-      2021 & 8235.471 \\
-      2020 & 9184.714 \\
-      2019 & 10735.115 \\
-      2018 & 9609.851 \\
-      2017 & 9946.879 \\
       2016 & 10203.375 \\
+      2017 & 9946.879 \\
+      2018 & 9609.851 \\
+      2019 & 10735.115 \\
+      2020 & 9184.714 \\
+      2021 & 8235.471 \\
+      2022 & 8722.021 \\
+      2023 & 9860.162 \\
+      2024 & 9629.283 \\
+      2025 & 10552.442 \\
       \bottomrule
     \end{tabular}
   \end{minipage}
 \end{table}
+\fi
 
 \begin{figure}
   \centering
-  \includegraphics[page=1,scale=0.8,trim={1.2cm 1.4cm 1.2cm 2.2cm},clip]{images/ptotsys_month6_week4_comparison_with_means.html.pdf}
+  \includegraphics[scale=0.4,trim={1.2cm 1.4cm 1.2cm 2.2cm},clip]{images/Juni_Woche_Timeseries.png}
   \caption{Ptotsywerte der letzten 10 Jahre in der 4. Juniwoche.}
 \end{figure}
 \clearpage
 \begin{figure}
   \centering
-  \includegraphics[page=2,width=0.95\textwidth,trim={1.2cm 25cm 9.5cm 1.2cm},clip]{images/ptotsys_month6_week4_comparison_with_means.html.pdf}
+  \includegraphics[width=0.95\textwidth]{images/Juni_Woche_Mittelwert.png}
   \caption{Mittelwerte der Ptotsywerte der letzten 10 Jahre in der 4. Juniwoche.}
 \end{figure}
 
 \begin{figure}
   \centering
-  \includegraphics[page=2,width=0.95\textwidth,trim={12cm 25cm 1.2cm 1cm},clip]{images/ptotsys_month6_week4_comparison_with_means.html.pdf}
+  \includegraphics[width=0.95\textwidth]{images/Juni_Woche_Varianz.png}
   \caption{Varianz der Ptotsywerte der letzten 10 Jahre in der 4. Juniwoche.}
 \end{figure}
 
@@ -342,18 +350,21 @@ Zusätzlich zur Wochenbetrachtung werden hier die aggregierten Monatswerte für 
   \caption{Kennzahlen der Ptotsywerte im Monat Januar}
   \begin{tabular}{lrrrr}
     \toprule
-    Jahr & Mittelwert & Varianz & 95\%-Perzentil (p95) & 99\%-Perzentil (p99) \\
+    Jahr & Mittelwert & Varianz & 95\%-Perzentil & 99\%-Perzentil \\
     \midrule
-    2026 & 307.288 & 10329.212 & 471.635 & 531.967 \\
-    2025 & 299.201 & 10061.289 & 459.883 & 521.348 \\
-    2024 & 297.364 & 10189.783 & 460.410 & 522.681 \\
-    2023 & 296.337 & 10104.641 & 459.263 & 522.586 \\
-    2022 & 298.431 & 9641.617 & 456.956 & 515.358 \\
-    2021 & 296.043 & 8990.277 & 446.474 & 500.603 \\
-    2020 & 294.849 & 9293.838 & 453.354 & 512.554 \\
-    2019 & 311.238 & 10115.453 & 474.971 & 532.803 \\
-    2018 & 284.746 & 8889.735 & 437.264 & 491.290 \\
+    2014 & 293.482 & 8002.920 & 442.320 & 494.332 \\
+    2015 & 309.557 & 9045.883 & 465.010 & 519.351 \\
+    2016 & 307.831 & 10318.720 & 474.317 & 537.109 \\
     2017 & 328.322 & 10378.154 & 491.835 & 550.242 \\
+    2018 & 284.746 & 8889.735 & 437.264 & 491.290 \\
+    2019 & 311.238 & 10115.453 & 474.971 & 532.803 \\
+    2020 & 294.849 & 9293.838 & 453.354 & 512.554 \\
+    2021 & 296.043 & 8990.277 & 446.474 & 500.603 \\
+    2022 & 298.431 & 9641.617 & 456.956 & 515.358 \\
+    2023 & 296.337 & 10104.641 & 459.263 & 522.586 \\
+    2024 & 297.364 & 10189.783 & 460.410 & 522.681 \\
+    2025 & 299.201 & 10061.289 & 459.883 & 521.348 \\
+    2026 & 307.288 & 10329.212 & 471.635 & 531.967 \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -361,25 +372,25 @@ Zusätzlich zur Wochenbetrachtung werden hier die aggregierten Monatswerte für 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\textwidth,trim={1.2cm 13.0cm 1.2cm 2.1cm},clip]{images/ptotsys_month_01_timeseries.html.pdf}
-  \caption{Zeitreihe der Ptotsywerte im Monat Januar (2017 bis 2026).}
+  \caption{Zeitreihe der Ptotsywerte im Monat Januar (2017 bis 2025).}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.95\textwidth,trim={1.2cm 18.9cm 1.2cm 3.1cm},clip]{images/ptotsys_month_01_means.html.pdf}
-  \caption{Mittelwerte der Ptotsywerte im Monat Januar (2017 bis 2026).}
+  \includegraphics[width=0.95\textwidth,trim={0.5cm 1.5cm 1cm 3cm},clip]{images/Mittelwert_Januar.png}
+  \caption{Mittelwerte der Ptotsywerte im Monat Januar (2014 bis 2026).}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.95\textwidth,trim={1.2cm 18.6cm 1.2cm 3.1cm},clip]{images/ptotsys_month_01_variance.html.pdf}
-  \caption{Varianz der Ptotsywerte im Monat Januar (2017 bis 2026).}
+  \includegraphics[width=0.95\textwidth,trim={0.5cm 1.5cm 1cm 0cm},clip]{images/Varianz_Januar.png}
+  \caption{Varianz der Ptotsywerte im Monat Januar (2014 bis 2026).}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.95\textwidth,trim={1.2cm 18.6cm 1.2cm 3.1cm},clip]{images/ptotsys_month_01_percentiles.html.pdf}
-  \caption{Perzentile: 95\%-Perzentilwert (p95) und 99\%-Perzentilwert (p99) der Ptotsywerte im Monat Januar (2017 bis 2026).}
+  \includegraphics[width=0.95\textwidth,trim={0.8cm 1.5cm 1cm 0cm},clip]{images/Perzentil_Januar.png}
+  \caption{Perzentile: 95\%-Perzentilwert (p95) und 99\%-Perzentilwert (p99) der Ptotsywerte im Monat Januar (2014 bis 2026).}
 \end{figure}
 
 Die Januar-Monatswerte zeigen über den betrachteten Zeitraum insgesamt ein stabiles Niveau mit erkennbaren Ausreissern in einzelnen Jahren. Insbesondere 2017 und 2019 liegen beim Mittelwert sowie bei den oberen Quantilen über dem Grossteil der restlichen Jahre.
