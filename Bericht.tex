@@ -675,7 +675,7 @@ Zur Einordnung von Extremwerten werden in dieser Subsection die drei höchsten P
   \caption{Top-3-Peaks der Ptotsywerte pro Jahr als Punktdiagramm.}
 \end{figure}
 
-Die Top-3-Peaks bewegen sich in den meisten Jahren in einem Bereich von rund 660 bis 760\,MW. In früheren Datenständen traten in den Jahren 2019, 2016 und 2014 Ausreisser auf, die als potenzielle Fehlmessungen identifiziert wurden. Der Code wurde entsprechend angepasst, um solche Fälle robuster zu erkennen und in der Auswertung angemessen zu behandeln.
+Die Top-3-Peaks bewegen sich in den meisten Jahren in einem Bereich von rund 660 bis 760\,MW. In früheren Datenständen traten in den Jahren 2019, 2016 und 2014 Ausreisser auf, die als potenzielle Fehlmessungen identifiziert wurden.
 
 % FFT-Abschnitt: Vergleich harmonischer Komponenten zwischen Jahren
 \subsection{FFT Analyse}
@@ -916,28 +916,7 @@ Die Abbildung zeigt die prognostizierte Entwicklung der Leistungs-Maxima im Bahn
 Die COVID-19-Pandemie hat einen signifikanten Einfluss auf die Schwellwertentwicklung ausgeübt. Während exogene Schocks wie die COVID-19-Pandemie zu kurzfristigen Reduktionen der Systemlast führten, ist anhand der Lastentwicklung sichtbar, dass sich das Lastniveau nach der Pandemie wieder in Richtung des vorherigen Trends bewegt. Dies unterstreicht die Bedeutung von strukturellen Faktoren bei der Schwellwertsetzung.
 Ein zentraler betrieblicher Treiber in dieser Phase war der pandemiebedingte Fahrplanwechsel mit reduziertem Angebot sowie teilweise kürzeren Zugkompositionen, was die beobachtete Lastreduktion plausibel erklärt.
 
-Die drei folgenden Abbildungen\footnote{Die Abbildungen \ref{fig:lr_vor_corona}, \ref{fig:lr_mit_corona} und \ref{fig:lr_nach_corona} wurden in Microsoft Excel erstellt: Zeitreihenwerte je Phase filtern, als Punktdiagramm darstellen, lineare Trendlinie hinzufügen und anschliessend als PNG exportieren.} zeigen die lineare Lastentwicklung in den Phasen vor, während und nach der COVID-19-Pandemie. Dadurch wird sichtbar, dass sich der Verlauf in der Pandemiephase deutlich von den angrenzenden Zeiträumen unterscheidet und dass sich das Lastniveau nach der Pandemie wieder in Richtung des vorherigen Trends bewegt. Die Gegenüberstellung dient damit als visuelle Einordnung des beobachteten Strukturbruchs im Zeitraum 2020/2021.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.95\textwidth]{images/regression/LR_vorCrorna.png}
-  \caption{Lineare Regression der Lastentwicklung vor der COVID-19-Phase.}
-  \label{fig:lr_vor_corona}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.95\textwidth]{images/regression/LR_mitCorona.png}
-  \caption{Lineare Regression der Lastentwicklung während der COVID-19-Phase.}
-  \label{fig:lr_mit_corona}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.95\textwidth]{images/regression/LR_nachCorona.png}
-  \caption{Lineare Regression der Lastentwicklung nach der COVID-19-Phase.}
-  \label{fig:lr_nach_corona}
-\end{figure}
+Die detaillierten Regressionsplots für die Top-3-Peaks sind in der Subsection \emph{Top-3-Peaks pro Jahr} dargestellt. Dort werden der Gesamtzeitraum 2014 bis 2025 sowie die jüngeren Teilzeiträume 2020 bis 2025 und 2023 bis 2025 miteinander verglichen, um die Entwicklung der Spitzenwerte einzuordnen.
 
 % Exogener Einfluss: Witterung und Temperaturentwicklung
 \subsection{Temperatur}
@@ -990,6 +969,36 @@ Ein wesentlicher Faktor für die Stabilität der Schwellwerte liegt in der relat
   \centering
   \includegraphics[width=0.95\textwidth]{images/climate-webimage_temperature_loess_de.png}
   \caption{Temperaturanomalie seit 1901 bis heute. Im Fokus stehen die letzten 10 Jahre mit einem Anstieg von rund 1\,\textdegree C; die moderate Veränderung stützt die beobachtete Stabilität der Schwellwerte in der Analyseperiode.}
+\end{figure}
+
+Zur Einordnung der Entwicklung der Spitzenlasten werden ergänzend vier lineare Regressionen der Top-3-Peaks gezeigt: für den Gesamtzeitraum 2014 bis 2025 sowie für die Teilzeiträume 2014 bis 2019, 2020 bis 2025 und 2023 bis 2025. Die geschätzten Steigungen betragen dabei rund 2,60\,MW/Jahr (2014--2025), 12,55\,MW/Jahr (2014--2019), 8,22\,MW/Jahr (2020--2025) und 12,79\,MW/Jahr (2023--2025). Alle vier Regressionen zeigen somit einen positiven Trend, wobei der Anstieg im sehr kurzen Zeitraum 2023 bis 2025 am stärksten ausfällt.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/regression/LR_top3_peaks_ab_2014.png}
+  \caption{Lineare Regression der Top-3-Peaks pro Jahr (2014--2025).}
+  \label{fig:lr_top3_peaks_ab_2014}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/regression/LR_top3_peaks_2014_2019.png}
+  \caption{Lineare Regression der Top-3-Peaks pro Jahr (2014--2019).}
+  \label{fig:lr_top3_peaks_2014_2019}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/regression/LR_top3_peaks_2020_2025.png}
+  \caption{Lineare Regression der Top-3-Peaks pro Jahr (2020--2025).}
+  \label{fig:lr_top3_peaks_2020_2025}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/regression/LR_top3_peaks_2023_2025.png}
+  \caption{Lineare Regression der Top-3-Peaks pro Jahr (2023--2025).}
+  \label{fig:lr_top3_peaks_2023_2025}
 \end{figure}
 
 % Optionaler Kontextplot bleibt vorerst deaktiviert
