@@ -670,6 +670,18 @@ Zur Einordnung von Extremwerten werden in dieser Subsection die drei höchsten P
         (2012,545)
       };
       \addlegendentry{3 gemessene Top-Viertelstunden im Jahr \cite{buser_kurzzeitoptimierung} (2000--2012)}
+
+      \addplot+[
+        only marks,
+        yellow,
+        mark=*,
+        mark options={draw=black,fill=yellow}
+      ] coordinates {
+        (2019,377.105)
+        (2019,375.154)
+        (2019,373.102)
+      };
+      \addlegendentry{Mittelwerte nach Tageszeit (2019)}
     \end{axis}
   \end{tikzpicture}
   \caption{Top-3-Peaks der Ptotsywerte pro Jahr als Punktdiagramm.}
