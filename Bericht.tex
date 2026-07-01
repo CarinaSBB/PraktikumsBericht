@@ -447,7 +447,7 @@ Zusätzlich zur Wochenbetrachtung werden hier die aggregierten Monatswerte für 
   \caption{Perzentile: 95\%-Perzentilwert (p95) und 99\%-Perzentilwert (p99) der Ptotsywerte im Monat Juni (2017 bis 2025).}
 \end{figure}
 
-Die Juni-Monatswerte zeigen ein insgesamt stabiles Niveau zwischen 2017 und 2025, mit einem klaren Rückgang im Jahr 2020. Dieser Rückgang ist sowohl beim Mittelwert als auch bei den hohen Quantilen 95\%-Perzentilwert (p95) und 99\%-Perzentilwert (p99) sichtbar und ist plausibel auf die Auswirkungen der COVID-19-Pandemie zurückzuführen. Der während dieser Zeit reduzierte Fahrplan und veränderte Zugkompositionen führten zu einer niedrigeren Systemlast.
+Die Juni-Monatswerte zeigen ein insgesamt stabiles Niveau zwischen 2017 und 2025, mit einem klaren Rückgang im Jahr 2020. Dieser Rückgang ist sowohl beim Mittelwert als auch bei den hohen Quantilen 95\%-Perzentilwert (p95) und 99\%-Perzentilwert (p99) sichtbar und ist plausibel auf die Auswirkungen der COVID-19-Pandemie zurückzuführen. Der während dieser Zeit reduzierte Fahrplan und veränderte Zugkompositionen führten zu einer niedrigeren Systemlast. Die beobachtete Schwankung der Varianz im Juni ist zudem wahrscheinlich durch die im Sommer gehäuft auftretenden Baustellen im SBB-Netz mitbedingt, da Baustellen zu Fahrplananpassungen, geänderten Trassenbelegungen und damit zu variableren Lastprofilen führen können. Zusätzlich ist die Gotthard-Sperre von August 2023 bis September 2024 als relevanter betrieblicher Sondereffekt zu berücksichtigen, der über Umleitungen und veränderte Betriebsabläufe auch auf die Last- und Varianzstruktur in den angrenzenden Perioden Einfluss genommen haben dürfte.
 
 \subsection{Top-3-Peaks pro Jahr}
 \label{sec:top3_peaks_jahr}
@@ -505,7 +505,7 @@ Zur Einordnung von Extremwerten werden in dieser Subsection die drei höchsten P
   \begin{tikzpicture}
     \begin{axis}[
       width=0.95\textwidth,
-      height=8.0cm,
+      height=8cm,
       xlabel={Jahr},
       ylabel={Ptotsywert [MW]},
       xmin=1996,
@@ -514,174 +514,111 @@ Zur Einordnung von Extremwerten werden in dieser Subsection die drei höchsten P
       ymax=1000,
       xtick={1996,2000,2004,2008,2012,2016,2020,2024},
       scaled x ticks=false,
-      xticklabel style={/pgf/number format/fixed,/pgf/number format/precision=0,/pgf/number format/1000 sep={}},
+      xticklabel style={
+        /pgf/number format/fixed,
+        /pgf/number format/precision=0,
+        /pgf/number format/1000 sep={}
+      },
       grid=major,
-      legend style={at={(0.5,-0.18)}, anchor=north}
+      legend style={at={(0.5,-0.2)}, anchor=north}
     ]
-      \addplot+[
-        only marks,
-        blue,
-        mark=diamond*,
-        mark options={draw=blue,fill=blue}
-      ] coordinates {
-        (2014,660.118)
-        (2014,657.526)
-        (2014,655.701)
-        (2015,697.533)
-        (2015,671.311)
-        (2015,668.553)
-        (2016,714.926)
-        (2016,695.053)
-        (2016,693.241)
-        (2017,705.758)
-        (2017,702.726)
-        (2017,690.851)
-        (2018,711.028)
-        (2018,706.28)
-        (2018,702.622)
-        (2019,745.177)
-        (2019,730.823)
-        (2019,712.23)
-        (2020,662.056)
-        (2020,661.553)
-        (2020,659.86)
-        (2021,700.802)
-        (2021,680.77)
-        (2021,678.708)
-        (2022,761.653)
-        (2022,712.398)
-        (2022,688.306)
-        (2023,694.894)
-        (2023,683.628)
-        (2023,679.428)
-        (2024,716.878)
-        (2024,712.429)
-        (2024,701.378)
-        (2025,736.11)
-        (2025,699.685)
-        (2025,698.89)
-      };
-      \addlegendentry{Top-3-Peaks (2014--2025)}
 
-      \addplot+[
-        only marks,
-        green!60!black,
-        mark=*,
-        mark options={draw=green!60!black,fill=green!60!black}
-      ] coordinates {
-        (1996,555)
-        (1996,540)
-        (1996,525)
-        (1997,560)
-        (1997,545)
-        (1997,530)
-        (1998,565)
-        (1998,550)
-        (1998,535)
-        (1999,570)
-        (1999,555)
-        (1999,540)
-        (2000,590)
-        (2000,575)
-        (2000,560)
-        (2001,580)
-        (2001,565)
-        (2001,550)
-        (2002,570)
-        (2002,555)
-        (2002,540)
-        (2003,600)
-        (2003,585)
-        (2003,570)
-        (2004,590)
-        (2004,575)
-        (2004,560)
-        (2005,610)
-        (2005,595)
-        (2005,580)
-        (2006,670)
-        (2006,650)
-        (2006,630)
-        (2007,675)
-        (2007,660)
-        (2007,645)
-        (2008,680)
-        (2008,665)
-        (2008,650)
-        (2009,690)
-        (2009,675)
-        (2009,660)
-        (2010,700)
-        (2010,685)
-        (2010,670)
-        (2011,680)
-        (2011,665)
-        (2011,650)
-        (2012,720)
-        (2012,705)
-        (2012,690)
-      };
-      \addlegendentry{Top-3-Peaks \cite{buser_kurzzeitoptimierung} (1996--2012)}
+    % --- Blau ---
+    \addplot+[
+      only marks,
+      blue,
+      mark=diamond*,
+      mark options={fill=blue}
+    ] coordinates {
+      (2014,660.118) (2014,657.526) (2014,655.701)
+      (2015,697.533) (2015,671.311) (2015,668.553)
+      (2016,714.926) (2016,695.053) (2016,693.241)
+      (2017,705.758) (2017,702.726) (2017,690.851)
+      (2018,711.028) (2018,706.28) (2018,702.622)
+      (2019,745.177) (2019,730.823) (2019,712.23)
+      (2020,662.056) (2020,661.553) (2020,659.86)
+      (2021,700.802) (2021,680.77) (2021,678.708)
+      (2022,761.653) (2022,712.398) (2022,688.306)
+      (2023,694.894) (2023,683.628) (2023,679.428)
+      (2024,716.878) (2024,712.429) (2024,701.378)
+      (2025,736.11) (2025,699.685) (2025,698.89)
+    };
+    \addlegendentry{Top-3-Peaks (2014--2025)}
 
-      \addplot+[
-        only marks,
-        red,
-        mark=square*,
-        mark options={draw=red,fill=red}
-      ] coordinates {
-        (2000,490)
-        (2000,475)
-        (2000,460)
-        (2001,480)
-        (2001,465)
-        (2001,450)
-        (2002,470)
-        (2002,455)
-        (2002,440)
-        (2003,495)
-        (2003,480)
-        (2003,465)
-        (2004,485)
-        (2004,470)
-        (2004,455)
-        (2005,505)
-        (2005,490)
-        (2005,475)
-        (2006,550)
-        (2006,530)
-        (2006,510)
-        (2007,535)
-        (2007,520)
-        (2007,505)
-        (2008,545)
-        (2008,530)
-        (2008,515)
-        (2009,560)
-        (2009,545)
-        (2009,530)
-        (2010,565)
-        (2010,550)
-        (2010,535)
-        (2011,545)
-        (2011,530)
-        (2011,515)
-        (2012,575)
-        (2012,560)
-        (2012,545)
-      };
-      \addlegendentry{3 gemessene Top-Viertelstunden im Jahr \cite{buser_kurzzeitoptimierung} (2000--2012)}
+    % --- Grün ---
+    \addplot+[
+      only marks,
+      green!60!black,
+      mark=o,
+      mark options={fill=none,draw=green!60!black}
+    ] coordinates {
+      (1996,547.887) (1996,537.264) (1996,526.25)
+      (1997,553.622) (1997,527) (1997,526)
+      (1998,555) (1998,544) (1998,543)
+      (1999,557) (1999,551) (1999,545)
+      (2000,583) (2000,562) (2000,562)
+      (2001,572) (2001,562) (2001,556)
+      (2002,556) (2002,544) (2002,542)
+      (2003,597) (2003,584) (2003,577)
+      (2004,585) (2004,581) (2004,577)
+      (2005,612) (2005,611) (2005,605)
+      (2006,646) (2006,604) (2006,602)
+      (2007,657) (2007,624) (2007,606)
+      (2008,635) (2008,633) (2008,630)
+      (2009,635) (2009,624) (2009,618)
+      (2010,671) (2010,667) (2010,662)
+      (2011,659) (2011,657) (2011,653)
+      (2012,739) (2012,699) (2012,699)
+      (2013,671) (2013,670) (2013,670)
+      (2014,660) (2014,658) (2014,656)
+      (2015,698) (2015,671) (2015,667)
+      (2016,715) (2016,695) (2016,693)
+    };
 
-      \addplot+[
-        only marks,
-        yellow,
-        mark=*,
-        mark options={draw=black,fill=yellow}
-      ] coordinates {
-        (2019,377.105)
-        (2019,375.154)
-        (2019,373.102)
-      };
-      \addlegendentry{Mittelwerte nach Tageszeit (2019)}
+    \addlegendentry{Top-3-Peaks (1996--2016)}
+
+    % --- Rot ---
+    \addplot+[
+      only marks,
+      red,
+      mark=square*,
+      mark options={fill=red}
+    ] coordinates {
+      (2000,421) (2000,409) (2000,446)
+      (2001,428) (2001,452) (2001,421)
+      (2002,426) (2002,425) (2002,430)
+      (2003,438) (2003,474) (2003,473)
+      (2004,478) (2004,421) (2004,443)
+      (2005,456) (2005,386) (2005,449)
+      (2006,431) (2006,441) (2006,377)
+      (2007,414) (2007,488) (2007,449)
+      (2008,416) (2008,472) (2008,450)
+      (2009,470) (2009,464) (2009,502)
+      (2010,528) (2010,433) (2010,436)
+      (2011,470) (2011,479) (2011,436)
+      (2012,470) (2012,485) (2012,471)
+      (2013,426) (2013,492) (2013,471)
+      (2014,499) (2014,477) (2014,492)
+      (2015,476) (2015,505) (2015,525)
+      (2016,567) (2016,549) (2016,545)
+      (2017,539) (2017,505) (2017,465)
+    };
+    \addlegendentry{Top-Viertelstunden (2000--2017)}
+
+    % --- Gelb ---
+    \addplot+[
+      only marks,
+      yellow,
+      mark=*,
+      mark options={fill=yellow, draw=black}
+    ] coordinates {
+      (2019,377.105) (2019,375.154) (2019,373.102)
+      (2023,380.712) (2023,376.438) (2023,372.965)
+      (2024,388.371) (2024,386.156) (2024,378.215)
+      (2025,396.054) (2025,387.962) (2025,384.842)
+    };
+    \addlegendentry{Mittelwerte nach Tageszeit}
+
     \end{axis}
   \end{tikzpicture}
   \caption{Top-3-Peaks der Ptotsywerte pro Jahr als Punktdiagramm.}
@@ -885,6 +822,7 @@ Der harmonische Vergleich über $k=1\dots86400$ im Zeitraum Juni bis August zeig
 \paragraph{Grafischer Vergleich ausgewählter Harmonischer}
 Die folgenden Balkendiagramme fassen die Werte für die harmonischen Ordnungen
 $k=8,12,24,48,96,288,1440$ zusammen. Sowohl für den Zeitraum Januar bis Februar als auch für den Zeitraum Juni bis August werden die Jahre direkt je $k$ verglichen. Die Auswahl solcher diskreten Frequenzkomponenten knüpft an die Betrachtung charakteristischer Frequenzanteile des Bahnstromlastgangs an, wie sie auch bei \cite{bosch_frequenzkomponenten_bahnstromlastgangs} diskutiert wird.
+Für $k=8$ (entspricht einer Periodendauer von rund 3 Stunden) ist zudem denkbar, dass sich Einflüsse des internationalen Personenverkehrs im Lastgang mit abbilden.
 
 \paragraph{Zeitraum Januar bis Februar}
 
@@ -921,6 +859,29 @@ Die Abbildung zeigt die prognostizierte Entwicklung der Leistungs-Maxima im Bahn
 
 \section{Trends und Einflussfaktoren}
 \label{sec:trends}
+
+\subsection{Einflusskriterien nach Relevanz}
+\label{sec:einflusskriterien}
+
+Die folgende Tabelle fasst die im Kapitel identifizierten Einflusskriterien auf die Schwellwertentwicklung zusammen und bewertet deren Relevanz qualitativ.
+
+\begin{table}[H]
+  \centering
+  \caption{Einflusskriterien auf die Schwellwertentwicklung nach Relevanz}
+  \begin{tabular}{p{4.5cm}p{2.2cm}p{7.2cm}}
+    \toprule
+    Einflusskriterium & Relevanz & Begründung \\
+    \midrule
+    COVID-19-bedingte Betriebsänderungen (Fahrplan/Zugkomposition) & Hoch & Deutliche Lastreduktion in den Jahren 2020 und 2021; klarer Einfluss auf Mittelwerte und obere Quantile. \\
+    Betriebliche Angebotsänderungen (Fahrplan, Kapazität) & Hoch & Direkter Einfluss auf Systemlast und Peak-Ausprägung durch veränderte Verkehrs- und Betriebsintensität. \\
+    Einführung von vPro (Verbesserung der Pünktlichkeit um ca. 1\%) & Mittel & Positive Wirkung auf die Betriebsqualität; als indirekter Treiber relevant für Lastverteilung und betriebliche Stabilität. \\
+    Temperaturabhängiger Heiz- und Kühlbedarf & Mittel & Nachweisbarer Zusammenhang mit Lastniveau; in der Analyseperiode jedoch nur moderater Temperaturtrend. \\
+    Saisonale Lastmuster (Winter/Sommer) & Mittel & Unterschiede zwischen Winter- und Sommerperioden erkennbar, aber ohne dauerhaft strukturellen Sprung über alle Jahre. \\
+    Langfristige Klimaentwicklung & Gering & Im betrachteten Zeitraum nur graduelle Veränderung; keine dominante Verschiebung der Schwellwerte. \\
+    Einzelne Extremereignisse/Ausreißer & Gering & Relevant für punktuelle Peaks, jedoch begrenzter Einfluss auf den langfristigen Trend. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 % Exogener Einfluss: Pandemie und betriebliche Anpassungen
 \subsection{COVID-19}
@@ -1026,6 +987,34 @@ Die zusätzliche Januarbetrachtung ordnet das Jahr 2017 als kältegeprägten Ver
 Der stabile Temperaturtrend steht in Einklang mit den beobachteten Schwellwertmustern. Während exogene Schocks wie die COVID-19-Pandemie zu kurzfristigen Reduktionen der Systemlast führten, bleibt der langfristige Trend durch die moderate Temperaturentwicklung geprägt. Dies unterstreicht die Bedeutung von Klimafaktoren bei der Schwellwertsetzung und deren Projektion in die Zukunft.
 
 Der Einfluss der Temperatur auf den Energiebedarf ist dabei erheblich: Im Heizbereich bewirkt eine Temperaturänderung von 1\,°C eine Verschiebung der Systemlast von rund 10\,MW, während im Kühlbereich ein Grad Unterschied eine Veränderung von 3–4\,MW verursacht. Diese Sensitivitäten verdeutlichen, warum selbst moderate Klimaveränderungen langfristig zu einer spürbaren Verschiebung der Schwellwerte führen können.
+
+\subsection{Zusammenhang zwischen Zugpünktlichkeit und Energiebedarf}
+
+Die Abteilung Energieeffizienz der SBB untersuchte den Zusammenhang zwischen der Zugpünktlichkeit und der in das Bahnstromnetz eingespeisten Energiemenge. Grundlage der Auswertung bilden tägliche Werte der Zugpünktlichkeit von SBB Infrastruktur sowie der Energieeinspeisung in das 16{,}7-Hz-Bahnstromsystem (siehe Abbildung~\ref{fig:puek_energie}).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/PueK_Energie.png}
+  \caption{Zusammenhang zwischen Zugpünktlichkeit und Energieeinspeisung im Bahnstromsystem. Quelle: SBB, Abteilung Energieeffizienz.}
+  \label{fig:puek_energie}
+\end{figure}
+
+Die Analyse zeigt einen deutlichen Zusammenhang zwischen Betriebsqualität und Energieverbrauch. Mit zunehmender Zugpünktlichkeit nimmt die in das Bahnstromnetz eingespeiste Energiemenge tendenziell ab. Hohe Pünktlichkeitswerte gehen somit mit einem geringeren Energiebedarf des Bahnbetriebs einher.
+
+Die in der Auswertung dargestellten Tagesenergiemengen liegen typischerweise zwischen 5\,500 und 8\,500~MWh pro Tag. Zur Einordnung können diese Werte in eine über den Tag gemittelte Leistung umgerechnet werden. Dabei ergibt sich die mittlere Leistung aus der dividierten Tagesenergie durch 24 Stunden. Der beobachtete Bereich entspricht damit einer durchschnittlichen Leistungsaufnahme von rund 230 bis 355~MW. Diese Umrechnung verändert die Aussage der Analyse nicht, erlaubt jedoch eine bessere Vergleichbarkeit mit leistungstechnischen Kenngrössen des Bahnstromsystems.
+
+Dieses Ergebnis deutet darauf hin, dass ein stabiler und präziser Bahnbetrieb nicht nur die Betriebsqualität verbessert, sondern gleichzeitig auch energetische Vorteile mit sich bringt. Verspätungen, zusätzliche Beschleunigungs- und Bremsvorgänge sowie betriebliche Konflikte führen zu einem höheren Energiebedarf beziehungsweise zu einer höheren mittleren Leistungsaufnahme, während ein gleichmässiger Verkehrsfluss den Energiebedarf reduziert.
+
+Die Resultate bestätigen damit die Bedeutung betrieblicher Optimierungsmassnahmen wie des optimierten Fahrprofils \emph{vPRO}, der Adaptiven Lenkung (ADL) sowie der Pünktlichkeitsanzeige (PüA). Diese Instrumente tragen sowohl zur Verbesserung der Fahrpräzision und Pünktlichkeit als auch zur Senkung des Energieverbrauchs im Bahnsystem bei.
+
+Die Umrechnung erfolgte gemäss
+
+\[
+P_\mathrm{mittel}=\frac{E}{24\,\mathrm{h}},
+\]
+
+wobei $E$ die tägliche Energieeinspeisung in MWh und
+$P_\mathrm{mittel}$ die daraus resultierende mittlere Tagesleistung in MW bezeichnet.
 
 %\section{Diskussion}
 %\label{sec:diskussion}
