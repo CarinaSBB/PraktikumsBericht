@@ -33,6 +33,7 @@
 \usepackage{float}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
+\usepgfplotslibrary{statistics}
 
 % Kopf- und Fusszeilen
 \usepackage{fancyhdr}
@@ -77,8 +78,49 @@
 % Abkürzungsverzeichnis
 \usepackage[printonlyused]{acronym}
 
+\makeatletter
+\renewcommand\part{%
+  \clearpage
+  \thispagestyle{plain}%
+  \if@twocolumn
+    \onecolumn
+    \@tempswatrue
+  \else
+    \@tempswafalse
+  \fi
+  \null\vfil
+  \secdef\@part\@spart}
+
+\def\@part[#1]#2{%
+    \ifnum \c@secnumdepth >-2\relax
+      \refstepcounter{part}%
+      \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
+    \else
+      \addcontentsline{toc}{part}{#1}%
+    \fi
+    \markboth{}{}%
+    {\centering
+     \interlinepenalty \@M
+     \normalfont
+     \ifnum \c@secnumdepth >-2\relax
+       \huge\bfseries \partname\nobreakspace\thepart
+       \par
+       \vskip 20\p@
+     \fi
+     \Huge \bfseries #2\par}%
+    \@endpart}
+
+\def\@spart#1{%
+    {\centering
+     \interlinepenalty \@M
+     \normalfont
+     \Huge \bfseries #1\par}%
+    \@endpart}
+\def\@endpart{\vfil\newpage}
+\makeatother
+
 % ----- Metadaten für Titelseite -----
-\newcommand{\reporttitle}{Optimierte Schwellwertsetzung}
+\newcommand{\reporttitle}{Datenanalyse des Lastmanagements und Festlegung optimierter Schwellenwerte}
 \newcommand{\reportauthor}{Carina Santos}
 \newcommand{\reportdegree}{Praktikumsarbeit}
 \newcommand{\reportdept}{SBB Energie}
@@ -188,8 +230,8 @@ Im Kontext der Betriebsführung ermöglicht Ptotsy somit eine datenbasierte Able
 
 Darüber hinaus eignet sich Ptotsy für den Vergleich über verschiedene Zeiträume (z. B. Wochen, Monate, Jahre), wodurch strukturelle Veränderungen im Lastprofil sichtbar werden. Exogene Einflüsse wie Fahrplananpassungen, betriebliche Sonderlagen oder Witterungseffekte können so quantifiziert und in der Interpretation der Schwellwertentwicklung nachvollziehbar eingeordnet werden.
 
-%\section{Methodik}
-%\label{sec:methodik}
+\part{Datenanalyse Lastmanagement}
+
 \section{Analyse der Schwellwertentwicklung}
 \label{sec:analyse}
 In diesem Kapitel werden sowohl ausgewählte Kalenderwochen als auch zusammengefasste Monatszeiträume im Zeitraum 2015 bis 2025 analysiert. Herangezogen werden tägliche Ptotsywerte sowie daraus abgeleitete harmonische Kennzahlen, um die Entwicklung und Trends der Schwellwerte zu untersuchen. Dabei werden sowohl durchschnittliche als auch maximale Werte betrachtet.
@@ -397,6 +439,46 @@ Zusätzlich zur Wochenbetrachtung werden hier die aggregierten Monatswerte für 
   \caption{Perzentile: 95\%-Perzentilwert (p95) und 99\%-Perzentilwert (p99) der Ptotsywerte im Monat Januar (2014 bis 2026).}
 \end{figure}
 
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+      width=0.7\textwidth,
+      height=7cm,
+      ylabel={Ptotsywert [MW]},
+      xtick={1},
+      xticklabels={Januar-Mittelwerte 2014--2026},
+      grid=major,
+      ymin=280,
+      ymax=335,
+      boxplot/draw direction=y
+    ]
+      \addplot+[
+        boxplot,
+        fill=sbbred!30,
+        draw=sbbred!80!black,
+      ] table[row sep=\\, y index=0] {
+        data\\
+        293.482\\
+        309.557\\
+        307.831\\
+        328.322\\
+        284.746\\
+        311.238\\
+        294.849\\
+        296.043\\
+        298.431\\
+        296.337\\
+        297.364\\
+        299.201\\
+        307.288\\
+      };
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Boxplot der jährlichen Januar-Mittelwerte im Zeitraum 2014 bis 2026.}
+  \label{fig:januar_boxplot_p95_p99}
+\end{figure}
+
 Die Januar-Monatswerte zeigen über den betrachteten Zeitraum insgesamt ein stabiles Niveau mit erkennbaren Ausreissern in einzelnen Jahren. Insbesondere 2017 und 2019 liegen beim Mittelwert sowie bei den oberen Quantilen über dem Grossteil der restlichen Jahre.
 
 \subsection{Analyse der Juni-Monatswerte}
@@ -447,11 +529,57 @@ Zusätzlich zur Wochenbetrachtung werden hier die aggregierten Monatswerte für 
   \caption{Perzentile: 95\%-Perzentilwert (p95) und 99\%-Perzentilwert (p99) der Ptotsywerte im Monat Juni (2017 bis 2025).}
 \end{figure}
 
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+      width=0.7\textwidth,
+      height=7cm,
+      ylabel={Ptotsywert [MW]},
+      xtick={1},
+      xticklabels={Juni-Mittelwerte 2017--2025},
+      grid=major,
+      ymin=240,
+      ymax=272,
+      boxplot/draw direction=y
+    ]
+      \addplot+[
+        boxplot,
+        fill=sbbred!30,
+        draw=sbbred!80!black,
+      ] table[row sep=\\, y index=0] {
+        data\\
+        260.734\\
+        263.199\\
+        265.412\\
+        264.849\\
+        260.294\\
+        243.421\\
+        259.742\\
+        264.655\\
+        269.038\\
+      };
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Boxplot der jährlichen Juni-Mittelwerte im Zeitraum 2017 bis 2025.}
+  \label{fig:juni_boxplot_mean}
+\end{figure}
+
 Die Juni-Monatswerte zeigen ein insgesamt stabiles Niveau zwischen 2017 und 2025, mit einem klaren Rückgang im Jahr 2020. Dieser Rückgang ist sowohl beim Mittelwert als auch bei den hohen Quantilen 95\%-Perzentilwert (p95) und 99\%-Perzentilwert (p99) sichtbar und ist plausibel auf die Auswirkungen der COVID-19-Pandemie zurückzuführen. Der während dieser Zeit reduzierte Fahrplan und veränderte Zugkompositionen führten zu einer niedrigeren Systemlast. Die beobachtete Schwankung der Varianz im Juni ist zudem wahrscheinlich durch die im Sommer gehäuft auftretenden Baustellen im SBB-Netz mitbedingt, da Baustellen zu Fahrplananpassungen, geänderten Trassenbelegungen und damit zu variableren Lastprofilen führen können. Zusätzlich ist die Gotthard-Sperre von August 2023 bis September 2024 als relevanter betrieblicher Sondereffekt zu berücksichtigen, der über Umleitungen und veränderte Betriebsabläufe auch auf die Last- und Varianzstruktur in den angrenzenden Perioden Einfluss genommen haben dürfte.
 
 \subsection{Top-3-Peaks pro Jahr}
 \label{sec:top3_peaks_jahr}
-Zur Einordnung von Extremwerten werden in dieser Subsection die drei höchsten Ptotsywerte pro Jahr für den Zeitraum 2014 bis 2025 dargestellt.
+Als historischer Kontext dient die in \cite{buser_kurzzeitoptimierung} gezeigte Prognose der Lastentwicklung. Die methodischen Grundlagen dieser Prognose sind in den vorliegenden Unterlagen jedoch nicht transparent dokumentiert. Ein dort impliziertes lineares Wachstum der Leistungs-Maxima wird durch die in dieser Arbeit ausgewerteten Daten nicht bestätigt.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth,trim={0.8cm 5cm 0.8cm 8cm},clip]{images/Buser.png}
+  \caption{Prognose der Lastentwicklung nach \cite{buser_kurzzeitoptimierung}.}
+\end{figure}
+
+Die Abbildung zeigt die prognostizierte Entwicklung der Leistungs-Maxima im Bahnstromnetz in sekündlicher sowie viertelstündlicher Auflösung (nach Buser). Im analysierten Zeitraum zeigt sich dagegen kein entsprechender Wachstumstrend; die Spitzenwerte bleiben insgesamt auf einem vergleichsweise stabilen Niveau.
+
+Vor diesem Hintergrund werden in dieser Subsection die drei höchsten Ptotsywerte pro Jahr für den Zeitraum 2014 bis 2025 dargestellt.
 
 \begin{table}[H]
   \centering
@@ -824,6 +952,24 @@ Die folgenden Balkendiagramme fassen die Werte für die harmonischen Ordnungen
 $k=8,12,24,48,96,288,1440$ zusammen. Sowohl für den Zeitraum Januar bis Februar als auch für den Zeitraum Juni bis August werden die Jahre direkt je $k$ verglichen. Die Auswahl solcher diskreten Frequenzkomponenten knüpft an die Betrachtung charakteristischer Frequenzanteile des Bahnstromlastgangs an, wie sie auch bei \cite{bosch_frequenzkomponenten_bahnstromlastgangs} diskutiert wird.
 Für $k=8$ (entspricht einer Periodendauer von rund 3 Stunden) ist zudem denkbar, dass sich Einflüsse des internationalen Personenverkehrs im Lastgang mit abbilden.
 
+\begin{table}[H]
+  \centering
+  \caption{Einordnung der in Abbildungen 16 und 17 verwendeten harmonischen Ordnungen}
+  \begin{tabular}{cc}
+    \toprule
+    Harmonische Ordnung $k$ & Zugeordnete Periodendauer \\
+    \midrule
+    8 & 3 Stunden \\
+    12 & 2 Stunden \\
+    24 & 1 Stunde \\
+    48 & 30 Minuten \\
+    96 & 15 Minuten \\
+    288 & 7{,}5 Minuten \\
+    1440 & 1 Minute \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
 \paragraph{Zeitraum Januar bis Februar}
 
 \begin{figure}[H]
@@ -849,14 +995,6 @@ Für $k=8$ (entspricht einer Periodendauer von rund 3 Stunden) ist zudem denkbar
   \item Es gibt keine Daten zum 20.11.2017.
 \end{itemize}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\textwidth,trim={0.8cm 5cm 0.8cm 8cm},clip]{images/Buser.png}
-  \caption{Prognose der Lastentwicklung nach \cite{buser_kurzzeitoptimierung}.}
-\end{figure}
-
-Die Abbildung zeigt die prognostizierte Entwicklung der Leistungs-Maxima im Bahnstromnetz in sek"undlicher sowie viertelst"undlicher Aufl"osung (nach Buser). Dabei ist ein lineares Wachstum erkennbar, das sich in unserer Analyse jedoch nicht bestätigt hat; im Gegenteil, die Werte sind über den betrachteten Zeitraum eher konstant geblieben.
-
 \section{Trends und Einflussfaktoren}
 \label{sec:trends}
 
@@ -868,20 +1006,22 @@ Die folgende Tabelle fasst die im Kapitel identifizierten Einflusskriterien auf 
 \begin{table}[H]
   \centering
   \caption{Einflusskriterien auf die Schwellwertentwicklung nach Relevanz}
-  \begin{tabular}{p{4.5cm}p{2.2cm}p{7.2cm}}
+  \small
+  \begin{tabular}{p{3.8cm}p{1.4cm}p{1.9cm}p{6.1cm}}
     \toprule
-    Einflusskriterium & Relevanz & Begründung \\
+    Einflusskriterium & Relevanz & Effekt [MW] & Begründung \\
     \midrule
-    COVID-19-bedingte Betriebsänderungen (Fahrplan/Zugkomposition) & Hoch & Deutliche Lastreduktion in den Jahren 2020 und 2021; klarer Einfluss auf Mittelwerte und obere Quantile. \\
-    Betriebliche Angebotsänderungen (Fahrplan, Kapazität) & Hoch & Direkter Einfluss auf Systemlast und Peak-Ausprägung durch veränderte Verkehrs- und Betriebsintensität. \\
-    Einführung von vPro (Verbesserung der Pünktlichkeit um ca. 1\%) & Mittel & Positive Wirkung auf die Betriebsqualität; als indirekter Treiber relevant für Lastverteilung und betriebliche Stabilität. \\
-    Temperaturabhängiger Heiz- und Kühlbedarf & Mittel & Nachweisbarer Zusammenhang mit Lastniveau; in der Analyseperiode jedoch nur moderater Temperaturtrend. \\
-    Saisonale Lastmuster (Winter/Sommer) & Mittel & Unterschiede zwischen Winter- und Sommerperioden erkennbar, aber ohne dauerhaft strukturellen Sprung über alle Jahre. \\
-    Langfristige Klimaentwicklung & Gering & Im betrachteten Zeitraum nur graduelle Veränderung; keine dominante Verschiebung der Schwellwerte. \\
-    Einzelne Extremereignisse/Ausreißer & Gering & Relevant für punktuelle Peaks, jedoch begrenzter Einfluss auf den langfristigen Trend. \\
+    COVID-19-bedingte Betriebsänderungen\\(Fahrplan/Zugkomposition) & Hoch & ca. -25 bis -45 & Deutliche Lastreduktion in den Jahren 2020 und 2021; aus den Wochenvergleichen ergibt sich eine Absenkung um rund 25 bis 45\,MW. \\
+    Einführung von vPro\\(Verbesserung der Pünktlichkeit um ca. 1\%) & Mittel & ca. 8 & Positive Wirkung auf die Betriebsqualität; die Grössenordnung folgt der später diskutierten Abschätzung für betriebliche Optimierungsmassnahmen. \\
+    Temperaturabhängiger\\Heizbedarf & Mittel & ca. -10 / \textdegree C & Im Heizbereich bewirkt eine Temperaturänderung von 1\,\textdegree C eine Lastverschiebung von rund 10\,MW. \\
+    Temperaturabhängiger\\Kühlbedarf & Mittel & ca. 3 / \textdegree C & Im Kühlbereich führt eine Temperaturänderung von 1\,\textdegree C zu einer Laständerung von rund 3 bis 4\,MW. \\
+    Wachstum des Lastpools & Mittel & ca. 60 & Der Lastpool ist bis 2025 auf rund 60\,MW bei 0\,\textdegree C Außentemperatur angewachsen; ein zusätzlicher Beitrag zum Lastniveau ist damit plausibel. \\
+    Langfristige Klimaentwicklung & Gering & ca. -10 & Als Wintereffekt ist langfristig eine Grössenordnung von rund -10\,MW plausibel, aber keine dominante Verschiebung der Schwellwerte. \\
     \bottomrule
   \end{tabular}
 \end{table}
+
+Ein zusätzlicher, denkbarer Einflussfaktor auf die Schwellwertentwicklung ist das Wachstum des Lastpools: Während der Lastpool in den Jahren 2018 und 2019 noch klein war, erreichte er bis 2025 etwa 60\,MW bei 0\,\textdegree C Außentemperatur. Diese Entwicklung kann das beobachtete Lastniveau in den neueren Jahren mitprägen.
 
 % Exogener Einfluss: Pandemie und betriebliche Anpassungen
 \subsection{COVID-19}
@@ -904,7 +1044,7 @@ Ein wesentlicher Faktor für die Stabilität der Schwellwerte liegt in der relat
       ybar,
       width=0.95\textwidth,
       height=7cm,
-      ymin=-4,
+      ymin=-4.5,
       ymax=5,
       bar width=8pt,
       ylabel={Temperaturmittel Januar [\,\textdegree C]},
@@ -914,7 +1054,7 @@ Ein wesentlicher Faktor für die Stabilität der Schwellwerte liegt in der relat
       xticklabel style={rotate=45,anchor=east},
       nodes near coords,
       nodes near coords style={font=\scriptsize},
-      enlarge x limits=0.02,
+      enlarge x limits=0.05,
       grid=major
     ]
       \addplot[fill=sbbred,draw=sbbred!70!black] coordinates {
@@ -992,6 +1132,19 @@ Der Einfluss der Temperatur auf den Energiebedarf ist dabei erheblich: Im Heizbe
 
 Die Abteilung Energieeffizienz der SBB untersuchte den Zusammenhang zwischen der Zugpünktlichkeit und der in das Bahnstromnetz eingespeisten Energiemenge. Grundlage der Auswertung bilden tägliche Werte der Zugpünktlichkeit von SBB Infrastruktur sowie der Energieeinspeisung in das 16{,}7-Hz-Bahnstromsystem (siehe Abbildung~\ref{fig:puek_energie}).
 
+Ergänzend wird die Größenordnung der Wirkung betrieblicher Maßnahmen (u. a. ADL) abgeschätzt: Laut internen Folien (z. B. Roland Aeschbacher) werden durch entsprechende Maßnahmen rund 70\,GWh pro Jahr eingespart. Umgerechnet auf eine mittlere Leistung ergibt sich
+\[
+P_\mathrm{mittel} = \frac{70\,\mathrm{GWh/a}}{8760\,\mathrm{h/a}} \approx 8\,\mathrm{MW}.
+\]
+Dem steht die von Buser prognostizierte Erhöhung des Mittelwerts von rund 150\,MW gegenüber. Unter Einbezug der in Tabelle~4.1 diskutierten Effekte lässt sich davon nur ein begrenzter Anteil erklären; selbst in einer oberen Abschätzung ist etwa die Hälfte plausibel. Damit erscheint die Buser-Prognose für den Mittelwert tendenziell auf der pessimistischen Seite.
+
+Zur Einordnung der Größenordnungen werden folgende Zirka-Werte verwendet:
+\begin{itemize}
+  \item Lastpool: +60\,MW
+  \item ADL und verwandte Maßnahmen: +8\,MW
+  \item Klimaerwärmung (Wintereffekt): $-10$\,MW
+\end{itemize}
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\textwidth]{images/PueK_Energie.png}
@@ -1015,6 +1168,79 @@ P_\mathrm{mittel}=\frac{E}{24\,\mathrm{h}},
 
 wobei $E$ die tägliche Energieeinspeisung in MWh und
 $P_\mathrm{mittel}$ die daraus resultierende mittlere Tagesleistung in MW bezeichnet.
+
+\part{Optimierter Schwellwertansatz}
+
+\section{FFT-basierte Schwellwertsetzung}
+\label{sec:teil2_fft_schwellwert}
+
+Methodisch wird f"ur die FFT-basierte Schwellwertsetzung zuerst aus dem Lastsignal
+eine gegl"attete Basislinie
+\emph{moving\_mean\_past} (exponentiell gleitender Mittelwert) berechnet. Das
+Residuum
+\[
+r(t)=P_{\mathrm{totsys}}(t)-\overline{P}_{\mathrm{past}}(t)
+\]
+wird anschliessend per FFT in Frequenzanteile zerlegt und "uber die gew"ahlten
+Harmonischen rekonstruiert. Der dynamische Schwellwert ergibt sich aus
+\[
+\theta(t)=\overline{P}_{\mathrm{past}}(t)+\left|s_{1\dots k_{\max}}(t)\right|+\Delta,
+\]
+wobei $s_{1\dots k_{\max}}(t)$ die Superposition der Komponenten $k=1\dots k_{\max}$
+darstellt und $\Delta$ ein fixer oder auf Ziel-Alarmrate kalibrierter Offset ist.
+
+Die vier Varianten unterscheiden sich vor allem in der zeitlichen Aufl"osung der
+nachgebildeten Schwankungen:
+\begin{itemize}
+  \item Bei $k_{\max}=24$ werden prim"ar langsame Muster (bis etwa st"undliche
+  Perioden) abgebildet; der Schwellwert verl"auft entsprechend glatt.
+  \item Bei $k_{\max}=48$ und $k_{\max}=96$ kommen k"urzere Dynamiken hinzu
+  (ca. 30 bzw. 15 Minuten), wodurch der Schwellwert flexibler auf lokale Last"anderungen
+  reagiert.
+  \item Bei $k_{\max}=1440$ (bis rund 1 Minute) folgt der Schwellwert auch sehr
+  schnellen Anteilen. Dadurch sinkt tendenziell die Zahl von Fehlalarmen bei kurzen
+  Peaks, gleichzeitig steigt das Risiko, dass der Schwellwert punktuell zu eng an das
+  Signal r"uckt.
+\end{itemize}
+
+In der praktischen Anwendung ist damit ein Kompromiss zwischen Robustheit und
+Sensitivit"at erforderlich: Kleine $k_{\max}$ liefern stabile, gut interpretierbare
+Grenzen, grosse $k_{\max}$ bilden kurzfristige Lastdynamik genauer nach. F"ur den
+operativen Einsatz eignet sich daher ein mittlerer Bereich (z.\,B. $k_{\max}=48$ bis
+$96$) oft als ausgewogene Ausgangseinstellung; die finale Wahl sollte "uber die
+beobachtete Alarmrate und betriebliche Anforderungen validiert werden.
+
+Die resultierenden Verläufe f"ur unterschiedliche maximale harmonische Ordnungen
+sind in den Abbildungen~\ref{fig:schwellwert_k24}, \ref{fig:schwellwert_k48},
+\ref{fig:schwellwert_k96} und \ref{fig:schwellwert_k1440} dargestellt.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/Schwellwert_k24.png}
+  \caption{FFT-basierter Schwellwert mit $k_{\max}=24$ (glatter Verlauf, Fokus auf langsame Muster).}
+  \label{fig:schwellwert_k24}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/Schwellwert_k48.png}
+  \caption{FFT-basierter Schwellwert mit $k_{\max}=48$ (zus"atzliche kurzfristige Struktur gegen"uber $k_{\max}=24$).}
+  \label{fig:schwellwert_k48}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/Schwellwert_k96.png}
+  \caption{FFT-basierter Schwellwert mit $k_{\max}=96$ (h"ohere Reaktionsf"ahigkeit auf lokale Last"anderungen).}
+  \label{fig:schwellwert_k96}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/Schwellwert_k1440.png}
+  \caption{FFT-basierter Schwellwert mit $k_{\max}=1440$ (sehr hohe zeitliche Aufl"osung bis in den Minutenbereich).}
+  \label{fig:schwellwert_k1440}
+\end{figure}
 
 %\section{Diskussion}
 %\label{sec:diskussion}
