@@ -124,7 +124,7 @@
 \newcommand{\reportauthor}{Carina Santos}
 \newcommand{\reportdegree}{Praktikumsarbeit}
 \newcommand{\reportdept}{SBB Energie}
-\newcommand{\reportdate}{September 2026}
+\newcommand{\reportdate}{August 2026}
 \newcommand{\reportsupervisor}{Betreuer: Andreas Fuchs}
 
 % ----- Dokument -----
@@ -1171,44 +1171,145 @@ $P_\mathrm{mittel}$ die daraus resultierende mittlere Tagesleistung in MW bezeic
 
 \part{Optimierter Schwellwertansatz}
 
+% SARIMA-Analyse Bericht
+% Zu integrieren in den Abschlussbericht
+
+\section{SARIMA-Zeitreihenanalyse}
+\label{sec:sarima}
+
+Die SARIMA-Analyse ergänzt die rein deskriptive Auswertung um eine explizite
+Zeitreihenprognose. Ziel ist, typische Lastmuster (Trend und Saisonalität)
+für den kurzfristigen Betrieb abzubilden und daraus belastbare Vorhersagen im
+Horizont von rund einem Tag abzuleiten.
+
+Die Datenbasis entspricht der im Bericht verwendeten Ptotsy-Zeitreihe aus dem
+SDE-Export. Vor dem Modell-Fit werden Zeitstempel bereinigt
+(inklusive Sommer-/Winterzeit), nicht nutzbare Statusspalten entfernt,
+fehlende Spalten ausgeschlossen und die Werte auf 15-Minuten-Intervalle
+aggregiert.
+
+Die Modellierung erfolgt mit
+\[
+\text{SARIMA}(p,d,q)(P,D,Q,s)=\text{SARIMA}(1,1,1)(1,1,1,96),
+\]
+wobei $s=96$ einem Tageszyklus bei 15-Minuten-Auflösung entspricht.
+Die zugrunde liegende Struktur lautet
+\begin{equation}
+  \phi(B)\Phi(B^s)\Delta^d\Delta_s^D y_t = \theta(B)\Theta(B^s)\epsilon_t.
+  \label{eq:sarima}
+\end{equation}
+
+\begin{table}[H]
+  \centering
+  \caption{Verwendete SARIMA-Modellparameter}
+  \label{tab:sarima_params}
+  \begin{tabularx}{0.7\textwidth}{lXr}
+    \toprule
+    \textbf{Parameter} & \textbf{Beschreibung} & \textbf{Wert} \\
+    \midrule
+    $p$ & AR-Ordnung (AutoRegressive) & 1 \\
+    $d$ & Differenzierungsgrad & 1 \\
+    $q$ & MA-Ordnung (Moving Average) & 1 \\
+    $P$ & Saisonale AR-Ordnung & 1 \\
+    $D$ & Saisonale Differenzierung & 1 \\
+    $Q$ & Saisonale MA-Ordnung & 1 \\
+    $s$ & Saisonperiode (15-Minuten-Werte pro Tag) & 96 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Für die Parametrisierung wird das Modell mit robusten Optionen geschätzt
+(\texttt{enforce\_stationarity=False},
+\texttt{enforce\_invertibility=False}), um auch in schwierigen
+Konstellationen konvergente Schätzungen zu erhalten.
+
+Als Ergebnis der Implementierung zeigt Abbildung~\ref{fig:sarima_code_result}
+den typischen Verlauf aus Beobachtung, Prognose und Unsicherheitsband.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/SARIMA.png}
+  \caption{SARIMA-Modellverlauf mit Beobachtungsdaten, Prognose und Konfidenzintervall.}
+  \label{fig:sarima_code_result}
+\end{figure}
+
+Die Wirkung der Modellparameter ist analog zur FFT-Parameterdiskussion als
+Robustheits-Sensitivitäts-Abwägung zu verstehen:
+\begin{itemize}
+  \item Höhere Differenzierung ($d$ oder $D$) stabilisiert den Mittelwert,
+  kann aber kurzfristige Dynamik glätten.
+  \item Höhere AR-/MA-Ordnungen ($p,q,P,Q$) erlauben eine feinere Anpassung an
+  lokale Muster, erhöhen jedoch das Überanpassungsrisiko.
+  \item Die saisonale Periode $s=96$ ist für Tagesmuster zentral; falsche
+  Periodenwahl verschlechtert die Prognose deutlich.
+\end{itemize}
+
+Die Validierung erfolgt als Out-of-Sample-Test mit Training bis 21.01.2019 und
+Vergleich gegen den 22.01.2019. Zur Gütebewertung werden MAE, RMSE und MAPE
+verwendet:
+\begin{equation}
+  \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|,
+\end{equation}
+\begin{equation}
+  \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2},
+\end{equation}
+\begin{equation}
+  \text{MAPE} = \frac{1}{n} \sum_{i=1}^{n} \left|\frac{y_i - \hat{y}_i}{y_i}\right| \times 100\%.
+\end{equation}
+
+In der praktischen Anwendung ist SARIMA besonders für Kurzfristprognosen
+(ca. 6 bis 48 Stunden) geeignet. Grenzen bestehen bei fehlenden exogenen
+Treibern (z. B. Temperatur, Feiertage, betriebliche Sonderlagen) sowie beim
+Rechenaufwand für große saisonale Strukturen.
+
+\subsection{Fazit}
+
+Das eingesetzte SARIMA-Modell bildet den täglichen Lastzyklus konsistent ab
+und liefert eine nachvollziehbare Grundlage für kurzfristige operative
+Entscheidungen. Für den produktiven Einsatz empfiehlt sich als nächster Schritt
+eine systematische Parameteroptimierung (z. B. Auto-ARIMA) und die Ergänzung
+externer Einflussgrößen.
+
 \section{FFT-basierte Schwellwertsetzung}
 \label{sec:teil2_fft_schwellwert}
 
-Methodisch wird f"ur die FFT-basierte Schwellwertsetzung zuerst aus dem Lastsignal
-eine gegl"attete Basislinie
-\emph{moving\_mean\_past} (exponentiell gleitender Mittelwert) berechnet. Das
-Residuum
+Die FFT-basierte Schwellwertsetzung erweitert die Analyse der Lastsignale um eine
+frequenzbasierte Rekonstruktion typischer Schwankungsmuster. Ausgangspunkt ist eine
+gegl"attete Basislinie \emph{moving\_mean\_past}, die als exponentiell gleitender
+Mittelwert berechnet wird. Aus dieser Basislinie wird das Residuum
 \[
 r(t)=P_{\mathrm{totsys}}(t)-\overline{P}_{\mathrm{past}}(t)
 \]
-wird anschliessend per FFT in Frequenzanteile zerlegt und "uber die gew"ahlten
-Harmonischen rekonstruiert. Der dynamische Schwellwert ergibt sich aus
+gebildet. Dieses Residuum wird anschliessend mittels FFT in seine Frequenzanteile
+zerlegt und "uber die gew"ahlten Harmonischen rekonstruiert. Der dynamische
+Schwellwert ergibt sich zu
 \[
 \theta(t)=\overline{P}_{\mathrm{past}}(t)+\left|s_{1\dots k_{\max}}(t)\right|+\Delta,
 \]
 wobei $s_{1\dots k_{\max}}(t)$ die Superposition der Komponenten $k=1\dots k_{\max}$
-darstellt und $\Delta$ ein fixer oder auf Ziel-Alarmrate kalibrierter Offset ist.
+bezeichnet und $\Delta$ einen festen oder auf eine Ziel-Alarmrate kalibrierten
+Offset darstellt.
 
-Die vier Varianten unterscheiden sich vor allem in der zeitlichen Aufl"osung der
-nachgebildeten Schwankungen:
+Die Wahl von $k_{\max}$ bestimmt, wie fein die kurzfristigen Schwankungen
+nachgebildet werden:
 \begin{itemize}
-  \item Bei $k_{\max}=24$ werden prim"ar langsame Muster (bis etwa st"undliche
-  Perioden) abgebildet; der Schwellwert verl"auft entsprechend glatt.
-  \item Bei $k_{\max}=48$ und $k_{\max}=96$ kommen k"urzere Dynamiken hinzu
-  (ca. 30 bzw. 15 Minuten), wodurch der Schwellwert flexibler auf lokale Last"anderungen
-  reagiert.
-  \item Bei $k_{\max}=1440$ (bis rund 1 Minute) folgt der Schwellwert auch sehr
-  schnellen Anteilen. Dadurch sinkt tendenziell die Zahl von Fehlalarmen bei kurzen
-  Peaks, gleichzeitig steigt das Risiko, dass der Schwellwert punktuell zu eng an das
-  Signal r"uckt.
+  \item Bei $k_{\max}=24$ werden vor allem langsame Muster abgebildet, also
+  Schwankungen mit eher st"undlicher Struktur. Der Schwellwert verl"auft dadurch
+  entsprechend glatt.
+  \item Bei $k_{\max}=48$ und $k_{\max}=96$ kommen k"urzere Dynamiken hinzu,
+  wodurch der Schwellwert sensibler auf lokale Last"anderungen reagiert.
+  \item Bei $k_{\max}=1440$ werden auch sehr schnelle Anteile bis in den
+  Minutenbereich ber"ucksichtigt. Das kann kurzfristige Peaks besser abfangen,
+  erh"oht jedoch das Risiko, dass der Schwellwert zu eng am Signalverlauf liegt.
 \end{itemize}
 
-In der praktischen Anwendung ist damit ein Kompromiss zwischen Robustheit und
-Sensitivit"at erforderlich: Kleine $k_{\max}$ liefern stabile, gut interpretierbare
-Grenzen, grosse $k_{\max}$ bilden kurzfristige Lastdynamik genauer nach. F"ur den
-operativen Einsatz eignet sich daher ein mittlerer Bereich (z.\,B. $k_{\max}=48$ bis
-$96$) oft als ausgewogene Ausgangseinstellung; die finale Wahl sollte "uber die
-beobachtete Alarmrate und betriebliche Anforderungen validiert werden.
+In der praktischen Anwendung ergibt sich damit ein Kompromiss zwischen Robustheit
+und Sensitivit"at. Kleine Werte von $k_{\max}$ liefern stabile und gut
+interpretierbare Grenzen, w"ahrend gr"ossere Werte kurzfristige Lastdynamik
+genauer nachbilden. F"ur den operativen Einsatz bietet sich daher ein mittlerer
+Bereich, etwa $k_{\max}=48$ bis $96$, als ausgewogene Ausgangseinstellung an. Die
+endg"ultige Wahl sollte anschliessend "uber die beobachtete Alarmrate und die
+betrieblichen Anforderungen validiert werden.
 
 Die resultierenden Verläufe f"ur unterschiedliche maximale harmonische Ordnungen
 sind in den Abbildungen~\ref{fig:schwellwert_k24}, \ref{fig:schwellwert_k48},
