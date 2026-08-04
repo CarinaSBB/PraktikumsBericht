@@ -72,11 +72,11 @@
 
 % Literatur: biblatex (backend=biber). Wenn du lieber BibTeX willst, siehe Hinweis unten.
 \usepackage{csquotes}
-\usepackage[backend=biber,style=authoryear,sorting=nyt]{biblatex}
+\usepackage[backend=biber,style=authoryear,sorting=nyt,dashed=false]{biblatex}
 \addbibresource{literatur.bib}
 
 % Abkürzungsverzeichnis
-\usepackage[printonlyused]{acronym}
+\usepackage{acronym}
 
 \makeatletter
 \renewcommand\part{%
@@ -190,11 +190,32 @@ Ebenso danke ich dem Team von SBB Energie für die offene Zusammenarbeit, den pr
 % Abstracts
 \section*{Zusammenfassung}
 \addcontentsline{toc}{section}{Zusammenfassung}
-Kurzfassung auf Deutsch.
+Diese Arbeit untersucht die Entwicklung von Lastschwellwerten im
+Bahnstromsystem der SBB auf Basis der Kennzahl Ptotsys. Ziel ist eine
+datenbasierte und betrieblich robuste Schwellwertsetzung, die sowohl
+Normallast als auch Lastspitzen zuverlässig abbildet. Analysiert werden
+ausgewählte Kalenderwochen sowie Monatszeiträume im Zeitraum 2014 bis 2025.
+Methodisch werden deskriptive Kennzahlen (Mittelwert, Varianz, p95, p99,
+Maxima), Peak-Analysen sowie Frequenzanalysen mit FFT kombiniert.
 
-\section*{Abstract}
-\addcontentsline{toc}{section}{Abstract}
-Kurzfassung auf Englisch.
+Die Ergebnisse zeigen kein durchgängig lineares Lastwachstum, sondern ein
+strukturell stabiles Lastniveau mit zeitlich begrenzten Abweichungen.
+Insbesondere die COVID-19-Phase führt zu temporären Lastreduktionen; danach
+nähert sich das System wieder dem vorherigen Niveau an. Als zentrale
+Einflussfaktoren auf die Schwellwertentwicklung bestätigen sich betriebliche
+Rahmenbedingungen, Temperaturabhängigkeit sowie punktuelle Sonderlagen.
+
+Für die kurzfristige Prognose wurde ergänzend ein
+SARIMA(1,1,1)(1,1,1,96)-Modell eingesetzt. Dieses bildet den täglichen
+Lastzyklus konsistent ab und eignet sich für operative Vorhersagen im
+Kurzfristhorizont. Zusätzlich wurde ein FFT-basierter Schwellwertansatz
+implementiert, der die Sensitivität über die Anzahl berücksichtigter
+Harmonischer gezielt steuert.
+
+Insgesamt empfiehlt die Arbeit eine adaptive Schwellwertlogik: stabile
+Basisschwellen für den Regelbetrieb, ergänzt um saisonale und kurzfristig
+prognosegestützte Anpassungen. Dadurch lassen sich Fehlalarme reduzieren und
+kritische Lastsituationen gleichzeitig frühzeitig erkennen.
 
 \clearpage
 \tableofcontents
@@ -209,16 +230,60 @@ Kurzfassung auf Englisch.
 % Abkürzungen
 \section*{Abkürzungsverzeichnis}
 \addcontentsline{toc}{section}{Abkürzungsverzeichnis}
-\begin{acronym}[SBB]
+\begin{acronym}[SARIMA]
   \acro{SBB}{Schweizerische Bundesbahnen}
   \acro{IT}{Informationstechnik}
   \acro{API}{Application Programming Interface}
+  \acro{ADL}{Adaptive Lenkung}
+  \acro{FFT}{Fast Fourier Transform}
+  \acro{SARIMA}{Seasonal AutoRegressive Integrated Moving Average}
+  \acro{AR}{Auto Regressive}
+  \acro{MA}{Moving Average}
+  \acro{MAE}{Mean Absolute Error}
+  \acro{RMSE}{Root Mean Squared Error}
+  \acro{MAPE}{Mean Absolute Percentage Error}
+  \acro{SDE}{Source Data Extract}
+  \acro{MW}{Megawatt}
+  \acro{MWh}{Megawattstunde}
+  \acro{VPRO}{Optimiertes Fahrprofil vPRO}
+  \acro{PUA}{Pünktlichkeitsanzeige}
+  \acro{COVID}{Coronavirus Disease 2019}
 \end{acronym}
 
 % ---------------- Kapitel (als Sections/Subsections) ----------------
 \section{Einleitung}
 \label{sec:einleitung}
-Motivation, Problemstellung, Zielsetzung, Aufbau der Arbeit.
+Ein stabiles Lastmanagement ist für den sicheren und wirtschaftlichen Betrieb
+des Bahnstromsystems zentral. Schwellwerte bilden dabei ein operatives
+Steuerungsinstrument: Sie unterstützen die frühzeitige Erkennung kritischer
+Lastsituationen und helfen gleichzeitig, unnötige Alarme im Regelbetrieb zu
+vermeiden. In der Praxis stehen diese Anforderungen in einem Spannungsfeld
+zwischen Robustheit und Sensitivität, insbesondere bei saisonalen Mustern,
+betrieblichen Sonderlagen und strukturellen Veränderungen im System.
+
+Die vorliegende Arbeit untersucht deshalb, wie sich Lastniveaus und
+Schwellwerte über die Jahre entwickeln und welche Einflussfaktoren dabei
+dominant sind. Grundlage ist die Auswertung von Ptotsy-Zeitreihen über mehrere
+Jahre. Ziel ist, eine nachvollziehbare und datenbasierte Grundlage für eine
+verbesserte Schwellwertsetzung zu schaffen. Im Fokus stehen sowohl
+deskriptive Kennzahlen (Mittelwert, Varianz, Perzentile, Maxima) als auch
+ergänzende analytische Verfahren zur Struktur- und Prognosebewertung.
+
+Methodisch kombiniert die Arbeit drei Perspektiven: Erstens werden
+Wochen- und Monatsvergleiche durchgeführt, um langfristige Muster und
+Auffälligkeiten sichtbar zu machen. Zweitens werden Peaks und externe
+Einflussfaktoren (z. B. Temperatur und betriebliche Sondereffekte) eingeordnet.
+Drittens werden mit SARIMA und FFT zwei komplementäre Ansätze eingesetzt,
+um kurzfristige Prognosefähigkeit und frequenzbasierte Schwellwertlogik zu
+bewerten.
+
+Der Bericht ist wie folgt aufgebaut: Zunächst werden der fachliche Hintergrund
+und die Relevanz der Kennzahl Ptotsy dargestellt. Anschließend folgt die
+mehrjährige Datenanalyse mit Schwerpunkt auf der Entwicklung der
+Schwellwerte. Darauf aufbauend werden ein SARIMA-basierter Prognoseansatz und
+eine FFT-basierte Schwellwertsetzung vorgestellt und hinsichtlich ihrer
+praktischen Eignung diskutiert. Abschließend werden die wichtigsten Ergebnisse
+für den operativen Einsatz zusammengeführt.
 
 \section{Stand der Technik / Theoretischer Hintergrund}
 \label{sec:stand}
@@ -569,7 +634,7 @@ Die Juni-Monatswerte zeigen ein insgesamt stabiles Niveau zwischen 2017 und 2025
 
 \subsection{Top-3-Peaks pro Jahr}
 \label{sec:top3_peaks_jahr}
-Als historischer Kontext dient die in \cite{buser_kurzzeitoptimierung} gezeigte Prognose der Lastentwicklung. Die methodischen Grundlagen dieser Prognose sind in den vorliegenden Unterlagen jedoch nicht transparent dokumentiert. Ein dort impliziertes lineares Wachstum der Leistungs-Maxima wird durch die in dieser Arbeit ausgewerteten Daten nicht bestätigt.
+Als historischer Kontext dienen die Arbeiten von \cite{buser_kurzzeitoptimierung} sowie \cite{bosch_lastmanagement_bahnstromsystem_2012} zur Lastentwicklung und zum Lastmanagement im Bahnstromsystem. Die methodischen Grundlagen der dort gezeigten Prognose sind in den vorliegenden Unterlagen jedoch nicht transparent dokumentiert. Ein impliziertes lineares Wachstum der Leistungs-Maxima wird durch die in dieser Arbeit ausgewerteten Daten nicht bestätigt.
 
 \begin{figure}[H]
   \centering
@@ -1199,6 +1264,15 @@ Die zugrunde liegende Struktur lautet
   \label{eq:sarima}
 \end{equation}
 
+Dabei bezeichnet $y_t$ den Lastwert zum Zeitpunkt $t$, $B$ den
+Rückwärtsverschiebungsoperator ($B y_t = y_{t-1}$), $\phi(B)$ den
+nicht-saisonalen AR-Polynomterm, $\Phi(B^s)$ den saisonalen AR-Polynomterm,
+$\theta(B)$ den nicht-saisonalen MA-Polynomterm und $\Theta(B^s)$ den
+saisonalen MA-Polynomterm. Die Operatoren $\Delta^d=(1-B)^d$ und
+$\Delta_s^D=(1-B^s)^D$ stehen für die nicht-saisonale bzw. saisonale
+Differenzierung, und $\epsilon_t$ ist der zufällige Fehlerterm
+(Weißes Rauschen).
+
 \begin{table}[H]
   \centering
   \caption{Verwendete SARIMA-Modellparameter}
@@ -1218,9 +1292,7 @@ Die zugrunde liegende Struktur lautet
   \end{tabularx}
 \end{table}
 
-Für die Parametrisierung wird das Modell mit robusten Optionen geschätzt
-(\texttt{enforce\_stationarity=False},
-\texttt{enforce\_invertibility=False}), um auch in schwierigen
+Für die Parametrisierung wird das Modell mit robusten Optionen geschätzt, um auch in schwierigen
 Konstellationen konvergente Schätzungen zu erhalten.
 
 Als Ergebnis der Implementierung zeigt Abbildung~\ref{fig:sarima_code_result}
@@ -1248,14 +1320,18 @@ Die Validierung erfolgt als Out-of-Sample-Test mit Training bis 21.01.2019 und
 Vergleich gegen den 22.01.2019. Zur Gütebewertung werden MAE, RMSE und MAPE
 verwendet:
 \begin{equation}
-  \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|,
+  \text{MAE} = \frac{1}{n} \sum_{t=1}^{n} |y_t - \hat{y}_t|,
 \end{equation}
 \begin{equation}
-  \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2},
+  \text{RMSE} = \sqrt{\frac{1}{n} \sum_{t=1}^{n} (y_t - \hat{y}_t)^2},
 \end{equation}
 \begin{equation}
-  \text{MAPE} = \frac{1}{n} \sum_{i=1}^{n} \left|\frac{y_i - \hat{y}_i}{y_i}\right| \times 100\%.
+  \text{MAPE} = \frac{1}{n} \sum_{t=1}^{n} \left|\frac{y_t - \hat{y}_t}{y_t}\right| \times 100\%.
 \end{equation}
+
+Dabei ist $y_t$ der tatsächlich beobachtete Lastwert zum Zeitpunkt $t$ und
+$\hat{y}_t$ der durch das Modell prognostizierte Lastwert zum gleichen
+Zeitpunkt.
 
 In der praktischen Anwendung ist SARIMA besonders für Kurzfristprognosen
 (ca. 6 bis 48 Stunden) geeignet. Grenzen bestehen bei fehlenden exogenen

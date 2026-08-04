@@ -2363,10 +2363,11 @@
   </bcf:bibdata>
   <bcf:section number="0">
     <bcf:citekey order="2" intorder="1">buser_kurzzeitoptimierung</bcf:citekey>
-    <bcf:citekey order="3" intorder="1">buser_kurzzeitoptimierung</bcf:citekey>
+    <bcf:citekey order="3" intorder="1">bosch_lastmanagement_bahnstromsystem_2012</bcf:citekey>
     <bcf:citekey order="4" intorder="1">buser_kurzzeitoptimierung</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">cassis_erste_schritte_weichenheizung</bcf:citekey>
-    <bcf:citekey order="6" intorder="1">bosch_frequenzkomponenten_bahnstromlastgangs</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">buser_kurzzeitoptimierung</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">cassis_erste_schritte_weichenheizung</bcf:citekey>
+    <bcf:citekey order="7" intorder="1">bosch_frequenzkomponenten_bahnstromlastgangs</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">
