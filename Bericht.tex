@@ -791,10 +791,6 @@ Vor diesem Hintergrund werden in dieser Subsection die drei höchsten Ptotsywert
       (2011,470) (2011,479) (2011,436)
       (2012,470) (2012,485) (2012,471)
       (2013,426) (2013,492) (2013,471)
-      (2014,499) (2014,477) (2014,492)
-      (2015,476) (2015,505) (2015,525)
-      (2016,567) (2016,549) (2016,545)
-      (2017,539) (2017,505) (2017,465)
     };
     \addlegendentry{Top-Viertelstunden (2000--2017)}
 
@@ -805,10 +801,18 @@ Vor diesem Hintergrund werden in dieser Subsection die drei höchsten Ptotsywert
       mark=*,
       mark options={fill=yellow, draw=black}
     ] coordinates {
-      (2019,377.105) (2019,375.154) (2019,373.102)
-      (2023,380.712) (2023,376.438) (2023,372.965)
-      (2024,388.371) (2024,386.156) (2024,378.215)
-      (2025,396.054) (2025,387.962) (2025,384.842)
+      (2014,500.501) (2014,490.822) (2014,489.345)
+      (2015,531.354) (2015,530.036) (2015,526.312)
+      (2016,536.342) (2016,529.291) (2016,524.433)
+      (2017,541.561) (2017,536.859) (2017,535.166)
+      (2018,567.010) (2018,562.497) (2018,560.479)
+      (2019,519.355) (2019,514.400) (2019,509.896)
+      (2020,503.459) (2020,495.991) (2020,495.121)
+      (2021,514.941) (2021,506.278) (2021,505.739)
+      (2022,515.009) (2022,512.718) (2022,508.381)
+      (2023,532.733) (2023,527.075) (2023,522.994)
+      (2024,517.134) (2024,514.971) (2024,513.218)
+      (2025,528.439) (2025,517.791) (2025,516.296)
     };
     \addlegendentry{Mittelwerte nach Tageszeit}
 
@@ -816,6 +820,73 @@ Vor diesem Hintergrund werden in dieser Subsection die drei höchsten Ptotsywert
   \end{tikzpicture}
   \caption{Top-3-Peaks der Ptotsywerte pro Jahr als Punktdiagramm.}
 \end{figure}
+
+\subsection{Berechnung der gemessenen Leistungsspitze}
+
+Im Schweizer Netznutzungstarif wird die Leistungskomponente des Netznutzungsentgelts
+anhand der \textit{gemessenen Leistungsspitze} berechnet. Diese ergibt sich aus den
+höchsten gemessenen Viertelstundenmittelwerten innerhalb eines Jahres.
+
+\subsubsection*{Viertelstundenmittelwert}
+
+Für jede 15-Minuten-Periode $[t_k,\, t_k + 15\,\text{min})$ wird der mittlere
+Systemleistungswert $\overline{P}_{t_k}$ aus den sekündlich gemessenen
+Echtzeitwerten $P(t)$ berechnet:
+
+\begin{equation}
+  \overline{P}_{t_k} = \frac{1}{N_k} \sum_{i=1}^{N_k} P(t_k + i \cdot \Delta t)
+  \label{eq:viertelstundenmittel}
+\end{equation}
+
+\noindent wobei $N_k$ die Anzahl der Messwerte innerhalb der Periode und
+$\Delta t = 1\,\text{s}$ die Abtastperiode bezeichnen.
+Jede der täglich 96 Perioden eines Jahres ergibt somit einen individuellen
+Mittelwert -- insgesamt rund $96 \times 365 \approx 35\,040$ Werte pro Jahr.
+
+\subsubsection*{Top-$n$ Selektion und gemessene Spitze}
+
+Aus allen Viertelstundenmittelwerten eines Jahres werden die $n$ höchsten
+Werte $\overline{P}^{(1)} \geq \overline{P}^{(2)} \geq \cdots \geq \overline{P}^{(n)}$
+identifiziert. Die gemessene Leistungsspitze $\hat{P}$ ergibt sich als deren
+arithmetisches Mittel:
+
+\begin{equation}
+  \hat{P} = \frac{1}{n} \sum_{j=1}^{n} \overline{P}^{(j)}
+  \label{eq:gemessene_spitze}
+\end{equation}
+
+\noindent In der vorliegenden Analyse wird $n = 3$ verwendet, was dem üblichen
+Vorgehen bei der SBB entspricht. Die Mittelung über mehrere Spitzenwerte
+verhindert, dass ein einzelner Ausreisser (z.\,B.\ durch einen Messdefekt)
+die jährliche Kennzahl dominiert.
+
+\subsubsection*{Implementierung}
+
+Die Berechnung erfolgt in zwei Schritten. Zunächst werden die sekündlichen
+Messwerte mittels \texttt{pandas.DataFrame.resample} auf 15-Minuten-Fenster
+aggregiert, wobei jede Periode ihren eigenen Mittelwert erhält (keine
+tagesübergreifende Mittelung). Anschliessend werden pro Kalenderjahr die
+$n$ Perioden mit dem höchsten Mittelwert selektiert und deren Durchschnitt
+als gemessene Leistungsspitze $\hat{P}$ ausgegeben.
+
+\begin{table}[H]
+  \centering
+  \caption{Beispiel: Top-3-Viertelstunden und gemessene Leistungsspitze}
+  \begin{tabular}{llrr}
+    \toprule
+    Jahr & Zeitpunkt & $\overline{P}$ [MW] & Rang \\
+    \midrule
+    2023 & 17.01.2023\;08:00 & 692{,}4 & 1 \\
+    2023 & 18.01.2023\;07:45 & 685{,}1 & 2 \\
+    2023 & 16.01.2023\;08:15 & 678{,}9 & 3 \\
+    \midrule
+    \multicolumn{2}{l}{Gemessene Spitze $\hat{P}$} & 685{,}5 & \\
+    \bottomrule
+  \end{tabular}
+  \label{tab:top3_beispiel}
+\end{table}
+
+Die gelben Punkte in der Abbildung entsprechen der so berechneten gemessenen Leistungsspitze $\hat{P}$ pro Jahr. Die Differenz zwischen diesen gelben Punkten und den roten Punkten nach Buser ist per dato jedoch nicht abschließend erklärbar.
 
 Die Top-3-Peaks bewegen sich in den meisten Jahren in einem Bereich von rund 660 bis 760\,MW. In früheren Datenständen traten in den Jahren 2019, 2016 und 2014 Ausreisser auf, die als potenzielle Fehlmessungen identifiziert wurden.
 
